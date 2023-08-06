@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+      window.onload = function () {
+        // DOM 완성된 상태
+        alert('문서 완성 window.onload');
+      };
+
+      // $(익명함수(){});
+      $(function () {
+        // DOM 완성된 상태
+        alert('문서 완성 jQuery');
+      });
+
+      // 아직 DOM 미완성
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let password = '1234'; // DB에 저장된 나의 비밀번호
+      let input = prompt('비밀번호를 입력하세요.');
+      //입력한 비밀번호가 맞으면 로그인 성공 출력,
+      //맞지 않으면 로그인 실패 출력
+
+      if (password === input) {
+        console.log('로그인 성공');
+      } else {
+        console.log('로그인 실패');
+      }
+
+      //1. id와 pw를 입력해보자.
+      let id = prompt('아이디를 입력');
+      let pw = prompt('암호를 입력');
+      alert(id + ' ' + pw);
+
+      //id는 root, pw는 1234
+      //2. id, pw가 맞는지, 틀린지 확인해보자.
+      if (id === 'root' && pw === '1234') {
+        console.log('로그인 성공');
+      } else {
+        console.log('로그인 실패');
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

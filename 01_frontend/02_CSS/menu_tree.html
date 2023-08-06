@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메뉴</title>
+    <style>
+      a {
+        text-decoration: none;
+      }
+      ul.menu {
+        background-color: antiquewhite;
+        padding-left: 0px;
+        width: 600px;
+        margin: 5px auto;
+        text-align: right;
+        border-radius: 100px 10px;
+        border: 20px inset blueviolet;
+        box-shadow: 10px 10px gray;
+      }
+      ul.menu li {
+        list-style-type: none;
+        display: inline;
+        margin: 5px 10px;
+        border-radius: 5px;
+      }
+      ul.menu > li:hover {
+        color: white;
+        background: black;
+      }
+      .menu > li:hover > a {
+        /* 메뉴 앞 ul 생략 가능. menu가 하나만 있다는 전제 하에*/
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="menu">
+      <li><a href="page4.html">회원가입</a></li>
+      <li><a href="page5.html">제품정보</a></li>
+      <li><a href="page6.html">게시판</a></li>
+      <li><a href="page7.html">장바구니</a></li>
+    </ul>
+    <ul>
+      <li><a href="#">홍차</a></li>
+      <li><a href="#">블랙차</a></li>
+      <li><a href="#">밀크</a></li>
+      <li><a href="#">커피</a></li>
+    </ul>
+  </body>
+</html>

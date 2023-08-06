@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let age = 10;
+
+      //target은 매개변수(parameter, agument)이지만, 변수의 위치에 있기 때문에 let을 붙이지 않음
+      function off(target) {
+        alert(target + ' off');
+        console.log('off를 실행하고 있습니다.');
+      }
+      function cook(x, y) {
+        document.write(x + y);
+        return x + y;
+      }
+      console.log('off 함수 호출 전입니다.');
+      off('전등');
+      off('선풍기');
+      off('TV');
+      cook(10, 20);
+      console.log('off 함수가 끝났습니다.');
+    </script>
+  </head>
+  <body></body>
+</html>

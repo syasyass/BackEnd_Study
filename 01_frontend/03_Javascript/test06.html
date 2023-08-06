@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function add(x, y) {
+        alert('더하기 기능 처리');
+        alert('더한 값의 결과' + (x + y));
+      }
+      function minus(x, y) {
+        alert('빼기 기능 처리');
+        alert('뺀 값의 결과' + (x - y));
+      }
+      function plus(x, y, z) {
+        alert(x + ' ' + y + '! ' + z + '!');
+      }
+      function age(x, y) {
+        alert(x + '님의 내년 나이는' + (y + 1) + '세입니다.');
+      }
+    </script>
+  </head>
+  <body>
+    <button type="button" onclick="add(200, 100)">더하기</button>
+    <button type="button" onclick="minus(500, 100)">빼기</button>
+    <button type="button" onclick="plus('안녕', 'JSP','바이바이')">
+      문자열 더하기
+    </button>
+    <button type="button" onclick="age('홍길동', 100)">나이 출력</button>
+  </body>
+</html>

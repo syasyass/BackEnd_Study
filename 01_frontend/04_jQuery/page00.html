@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+      // body 부분을 만나면, 옆에 있는 함수 부분을 실행시켜줌.
+      $(function () {
+        alert('ok.......');
+
+        console.log($('#b1'));
+
+        $('#b1').click(function () {
+          alert('b1이 클릭됨.');
+        });
+
+        $('#b2').click(function () {
+          alert('b2이 클릭됨.');
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="b1">버튼1</button>
+    <button id="b2">버튼2</button>
+  </body>
+</html>

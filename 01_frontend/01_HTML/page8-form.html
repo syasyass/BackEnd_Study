@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+  </head>
+  <body>
+    <h1>The input element</h1>
+
+    <form>
+      <!-- 사각형 틀 -->
+      <fieldset>
+        <!-- 사각형 틀의 제목 -->
+        <legend>Personalia</legend>
+        <label for="fname">First name:</label>
+        <input
+          type="text"
+          id="fname"
+          name="fname"
+          placeholder="이름을 입력하세요."
+          required
+        /><br /><br />
+        <label for="lname">Last name:</label>
+        <input
+          type="text"
+          id="lname"
+          name="lname"
+          placeholder="성을 입력하세요."
+        /><br /><br />
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="이메일을 입력하세요."
+        /><br /><br />
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" /><br /><br />
+        <input type="color" /><br />
+        <input type="date" /><br />
+        <input type="datetime" /><br />
+        <input type="datetime-local" /><br />
+        <input type="email" /><br />
+        <input type="month" /><br />
+        <input type="number" /><br />
+        <input type="range" /><br />
+        <input type="search" /><br />
+        <input type="tel" /><br />
+        <input type="time" /><br />
+        <input type="url" /><br />
+        <input type="week" /><br />
+        <input type="password" /><br />
+        <input type="text" value="홍길동" /><br />
+        <!-- text에서 value는 초기값 -->
+        <input type="button" value="중복확인" /><br />
+        취미:
+        <input type="checkbox" id="reading" /><label for="reading">독서</label>
+        <input type="checkbox" id="traveling" /><label for="traveling">
+          여행
+        </label>
+        <input type="checkbox" id="watch_movie" /><label for="watch_movie">
+          영화 감상
+        </label>
+        <br />
+        <input type="file" /><br />
+        <input type="hidden" /><br />
+        <input type="image" /><br />
+        성별:
+        <!-- 같은 name을 줘야 radio는 하나로 그룹핑 됨 -->
+        <label><input type="radio" name="gender" />남 </label>
+        <label><input type="radio" name="gender" />여</label><br />
+
+        취미:
+        <label><input type="radio" name="hobby" />축구 </label>
+        <label><input type="radio" name="hobby" />야구 </label><br />
+
+        <input type="reset" /><br />
+        <input type="submit" value="확인" />
+      </fieldset>
+    </form>
+
+    <p>
+      Click the "Submit" button and the form-data will be sent to a page on the
+      server called "action_page.php"
+    </p>
+  </body>
+</html>

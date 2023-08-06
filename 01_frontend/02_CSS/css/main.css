@@ -1,0 +1,26 @@
+tr:hover {
+  background-color: aquamarine;
+  cursor: pointer;
+}
+.footer {
+  background-color: rgb(200, 244, 244);
+}
+.jumbotron {
+  /* 절대경로 */
+  /* background-image: url(/bs4/images/wallpaper.jpg); */
+
+  /* 상대경로 */
+  background-image: url(../bs4/images/wallpaper.jpg);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+a.page-link {
+  border-width: 0px;
+}
+.avatar-sm {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}

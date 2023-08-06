@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+      /* function clickHandler() {
+        $('.box').css('background', 'red');
+        $('.box').css('border', '1px solid black');
+        console.log($('#box').css('background'));
+      }
+
+      $(function () {
+        $('#btn1').click(clickHandler);
+      }); */
+
+      $(function () {
+        //callback 함수 (jQuery에서 callback 처리됨)
+        $('#btn1').click(function () {
+          $('.box').css('background', 'red');
+          $('.box').css('border', '1px solid black');
+          console.log($('#box').css('background'));
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="btn1">스타일 변경</button>
+
+    <div
+      id="box"
+      class="box"
+      style="width: 100px; height: 100px; border: 1px dotted green"
+    ></div>
+    <div
+      id="box2"
+      class="box"
+      style="width: 100px; height: 100px; border: 1px dotted rgb(54, 35, 86)"
+    ></div>
+    <div
+      id="box3"
+      class="box"
+      style="width: 100px; height: 100px; border: 1px dotted rgb(176, 54, 16)"
+    ></div>
+  </body>
+</html>

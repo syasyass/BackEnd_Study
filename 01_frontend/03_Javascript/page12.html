@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      for (let i = 0; i < 5; i++) {
+        //document.write('환영합니다.' + i + '<br>');
+        document.write(`환영합니다. ${i}<br>`);
+        //템플릿 문자열. 백틱 사용(`) - 1번숫자 앞 버튼. 문자열 + 변수 조합일 때 씀.
+      }
+
+      let num = prompt('몇 번 반복할까요?');
+      num = parseInt(num);
+      console.log(`count: ${num}`);
+      //NaN : Not a Number
+
+      for (let index = 0; index < num; index++) {
+        document.write(`전화를 겁니다... ${index}<br>`);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

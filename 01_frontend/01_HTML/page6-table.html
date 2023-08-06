@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <hr>
+    <h1>The table element</h1>
+    <table>
+      <tbody>
+        <tr align="center">
+          <th width="100" colspan="3">Monthly Savings</th>
+          <th width="100" rowspan="3">...</th>
+        </tr>
+        <tr align="center">
+          <td width="100">January</td>
+          <td rowspan="2" width="100">추가</td>
+          <td width="100">$100</td>
+        </tr>
+        <tr align="center">
+          <td>February</td>
+          <td>$80</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <tbody>
+        <tr align="center">
+          <th width="100" colspan="3" rowspan="3">Monthly Savings</th>
+        </tr>
+        <tr align="center">
+          <td width="100">January</td>
+          <td rowspan="2" width="100">추가</td>
+          <td width="100">$100</td>
+        </tr>
+        <tr align="center">
+          <td>February</td>
+          <td>$80</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

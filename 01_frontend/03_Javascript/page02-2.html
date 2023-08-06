@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let x = 100;
+      let y = 200;
+
+      //x와 y의 값을 교체하세요.
+
+      let temp = x; // 백업
+      x = y; // x의 예전값은 잃어버림
+      y = temp; // 백업 데이터에서 가져옴
+
+      console.log("x : " + x); // x : 200
+      console.log("y : " + y); // y : 100
+
+      //소수점 자르기
+      row = prompt("가로를 입력하세요");
+      column = prompt("세로를 입력하세요");
+      result = parseFloat(row) * parseFloat(column);
+      alert("사각형의 면적은" + result.toFixed(2) + "입니다.");
+
+      //아침밥 조건문
+      let food = confirm("아침을 먹었나요?");
+      alert("입력받은 값은 " + food);
+
+      if (food === true) {
+        alert("배가 부르시겠군요.");
+      } else {
+        alert("배가 고프시겠군요.");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+      // body 부분을 만나면, 옆에 있는 함수 부분을 실행시켜줌.
+      console.log($('div'));
+
+      $(function () {
+        let text = $('div').text();
+        console.log(text);
+        $('div').text('new 텍스트');
+
+        console.log($('#id2').val());
+        $('#id2').val('mySQL');
+
+        console.log($('img').attr('src'));
+        $('img').attr('src', '/image/model2.jpg');
+      });
+    </script>
+  </head>
+  <body>
+    <div id="result1">현재 텍스트1<br /></div>
+    <div id="result2">현재 텍스트2</div>
+
+    <input id="id2" value="oracle" />
+
+    <img src="/image/model.jpg" width=""100">
+  </body>
+</html>

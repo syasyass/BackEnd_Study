@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login</title>
+    <style>
+      input:enabled {
+        background-color: whitesmoke;
+      }
+      input:disabled {
+        background-color: gray;
+      }
+      input:focus {
+        background-color: green;
+      }
+      input[type="text"] {
+        background: lightcoral;
+        color: white;
+        font-size: 30px;
+      }
+      input[type="password"] {
+        background: greenyellow;
+        color: blue;
+        font-size: 20px;
+      }
+      button:hover {
+        color: rgb(189, 35, 58); /* 글자색 */
+        background-color: aqua;
+        font-weight: bold; /* 폰트 굵기 */
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    userid: <input type="text" disabled /><br />
+    pass: <input type="password" /><br />
+    <button>로그인하기</button>
+  </body>
+</html>

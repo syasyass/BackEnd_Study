@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>textarea</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tbody>
+        <tr>
+          <th width="100">항목</th>
+          <th width="300">입력</th>
+        </tr>
+        <tr>
+          <td>번호</td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>제목</td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>내용</td>
+          <!-- cols = 글자수, rows = 글자행수 -->
+          <td><textarea cols="30" rows="10">내용을 입력하세요.</textarea></td>
+        </tr>
+        <tr>
+          <td>작성자</td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr align="center">
+          <td colspan="2"><input type="submit" value="글쓰기 완료" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

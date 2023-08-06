@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // call by value
+      function swap(x, y) {
+        let temp;
+        temp = x;
+        x = y;
+        y = temp;
+
+        console.log(`call by value 교환중 x: ${x}, ${y}`);
+      }
+
+      // call by value
+      function swap2(x, y) {
+        let temp;
+        temp = x;
+        x = y;
+        y = temp;
+
+        console.log(`call by value 교환중 x: ${x}, ${y}`);
+      }
+
+      let x = 10;
+      let y = 20;
+
+      console.log(`교환전 x: ${x}, ${y}`);
+      swap(x, y);
+      console.log(`교환후 x: ${x}, ${y}`);
+    </script>
+  </head>
+  <body></body>
+</html>

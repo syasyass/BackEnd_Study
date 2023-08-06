@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      var name = "홍길동";
+      var age = 10;
+      age = 20; //값 재할당 가능
+      var tel = "0101112222";
+
+      var tel = "021112222"; //재 선언 가능
+      console.log("내 전화번호는 " + tel); //휴대폰 번호? 집번호?
+      let phone = "0101112222";
+      //let phone = '0311112222' //재선언 불가능, 에러!
+      phone = "0113335555"; //재할당만 가능
+      console.log("내 전화번호는 " + phone);
+
+      const PI = 3.14;
+      //const PI = 333 //재선언 불가능
+      //PI = 3.15; //재할당 불가능. 인터프리터 언어라 코드에서는 오류로 안 잡아줌. 브라우저에서는 잡아줌.
+
+      let x = 100;
+      let y = 200;
+      alert(x + y); //산술연산자
+
+      result1 = x + y; //산술 결과값을 다음 연산에서 사용할 여지가 있으면 ram에 일단 저장
+      alert(result1 - 100); //산술연산자
+
+      result2 = x == y; //비교 연산자, !은 not의 의미
+      alert("두 수가 같은지 여부" + result2);
+    </script>
+  </head>
+  <body></body>
+</html>
