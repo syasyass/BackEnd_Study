@@ -10,7 +10,7 @@ public class ArrayEx07 {
 		int maxIx = ArrayUtil.findMaxValue(jumsu);
 		System.out.println("최고 점수는 " + jumsu[maxIx]);
 
-		int minIx = ArrayUtil.findMinValue(jumsu);
+		int minIx = ArrayUtil.findMinValue(jumsu, 0, jumsu.length);
 		System.out.println("최저 점수는 " + jumsu[minIx]);
 	}
 }
