@@ -8,12 +8,15 @@ public class ChildEx {
 
 	public static void main(String[] args) {
 		Child child = new Child();
+		System.out.println(child);
+
+		Parent parent = child; // 자동 타입 변환
+		System.out.println(parent);
+		System.out.println();
 
 		run(child);
 
 		System.out.println();
-
-		Parent parent = child; // 자동 타입 변환
 
 		parent.method1();
 		parent.method2(); // 재정의 된 메소드 호출. 가지고 있는 실체가 child이기 때문.
