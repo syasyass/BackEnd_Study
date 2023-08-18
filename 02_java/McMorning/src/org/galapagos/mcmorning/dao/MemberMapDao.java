@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.galapagos.mcmorning.util.Serializer;
 import org.galapagos.mcmorning.vo.Member;
 
 public class MemberMapDao implements MemberDao {
+
+	static final String FILE_PATH = "E:/Temp/McMorning_member_list.dat";
+
 	private Map<String, Member> memberMap;
 
 	public MemberMapDao() {
@@ -59,5 +63,17 @@ public class MemberMapDao implements MemberDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void save() throws Exception {
+		// memberList 직렬화 하면 되고,
+		Serializer.save(FILE_PATH, memberMap);
+	}
+
+	@Override
+	public void load() throws Exception {
+		// memberList 역직렬화 하면 됨
+		memberMap = (Map<String, Member>) Serializer.load(FILE_PATH);
 	}
 }

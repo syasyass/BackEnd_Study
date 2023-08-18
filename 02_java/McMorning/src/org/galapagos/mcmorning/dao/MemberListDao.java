@@ -3,12 +3,16 @@ package org.galapagos.mcmorning.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.galapagos.mcmorning.util.Serializer;
 import org.galapagos.mcmorning.vo.Member;
 
 import lombok.Getter;
 
 //Member에 대한 CRUD
 public class MemberListDao implements MemberDao {
+
+	static final String FILE_PATH = "E:/Temp/McMorning_member_list.dat";
+
 	@Getter
 	private List<Member> memberList;
 
@@ -87,6 +91,18 @@ public class MemberListDao implements MemberDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void save() throws Exception {
+		// memberList 직렬화 하면 되고,
+		Serializer.save(FILE_PATH, memberList);
+	}
+
+	@Override
+	public void load() throws Exception {
+		// memberList 역직렬화 하면 됨
+		memberList = (List<Member>) Serializer.load(FILE_PATH);
 	}
 
 }

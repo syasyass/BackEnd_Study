@@ -21,4 +21,10 @@ public interface MemberDao {
 
 	List<Member> searchByName(String name); // name: 홍길동, 길동, 길, 동... 여러 개일 수 있음
 
+	// 파일 저장
+	void save() throws Exception;
+
+	// 파일 불러오기
+	void load() throws Exception;
+
 }
