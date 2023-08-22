@@ -1,4 +1,4 @@
-package org.galapagos.command;
+package org.galapagos.common.cli.command;
 
 public interface Command {
 	void execute();

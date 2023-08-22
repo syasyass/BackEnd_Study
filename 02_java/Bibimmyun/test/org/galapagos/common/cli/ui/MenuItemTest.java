@@ -1,6 +1,6 @@
 package org.galapagos.common.cli.ui;
 
-import org.galapagos.command.ListCommand;
+import org.galapagos.bibimmyun.command.ListCommand;
 
 public class MenuItemTest {
 

@@ -1,4 +1,6 @@
-package org.galapagos.command;
+package org.galapagos.bibimmyun.command;
+
+import org.galapagos.common.cli.command.Command;
 
 public class SearchCommand implements Command {
 
