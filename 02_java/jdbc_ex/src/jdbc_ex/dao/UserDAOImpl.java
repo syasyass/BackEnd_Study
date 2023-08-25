@@ -19,6 +19,7 @@ public class UserDAOImpl implements UserDAO {
 	private String USER_UPDATE = "update users set name = ?, role = ? where id = ?";
 	private String USER_DELETE = "delete users where id = ?";
 
+	// 커넥션 개체
 	private Connection conn = JDBCUtil.getConnection(); // 중복 코드가 되므로 멤버 변수로 승격
 
 	// 싱글톤Singleton 패턴
