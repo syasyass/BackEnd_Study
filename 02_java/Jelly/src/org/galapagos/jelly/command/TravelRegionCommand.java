@@ -5,12 +5,13 @@ import java.util.List;
 import org.galapagos.common.cli.Input;
 import org.galapagos.common.cli.command.Command;
 import org.galapagos.jelly.dao.TravelDao;
-import org.galapagos.jelly.dao.TravelDaoImpl;
+import org.galapagos.jelly.dao.TravelMySQLDaoImpl;
+import org.galapagos.jelly.utils.TravelUtil;
 import org.galapagos.jelly.vo.Region;
 import org.galapagos.jelly.vo.TravelVO;
 
 public class TravelRegionCommand implements Command {
-	TravelDao dao = TravelDaoImpl.getInstance();
+	TravelDao dao = TravelMySQLDaoImpl.getInstance();
 
 	@Override
 	public void execute() {
@@ -23,21 +24,18 @@ public class TravelRegionCommand implements Command {
 		// 경상권 목록 보기 출력
 
 		List<Region> regions = dao.getRegions();
-		for (int i = 0; i < regions.size(); i++) {
-			Region r = regions.get(i);
-			System.out.printf("%d) %s\n", i + 1, r);
-		}
-		int sel = Input.readInt("권역 선택: ");
+//		for (int i = 0; i < regions.size(); i++) {
+//			Region r = regions.get(i);
+//			System.out.printf("%d) %s\n", i + 1, r);
+//		}
+//		int sel = Input.readInt("권역 선택: ");
+//		String region = regions.get(sel - 1).getRegion();
 
-		String region = regions.get(sel - 1).getRegion();
-		List<TravelVO> list = dao.getSpots(region);
+		Region region = Input.select("권역 선택: ", regions);
+		List<TravelVO> list = dao.getSpots(region.getRegion());
 
-		System.out.println(" #	[권역명] 관광지명");
-		System.out.println("================================================");
-		for (TravelVO travel : list) {
-			System.out.printf("%4d [%s] %s\n", travel.getNo(), travel.getRegion(), travel.getTitle());
-		}
-		System.out.println("================================================");
+		TravelUtil.printTravelList(list);
+
 		System.out.printf("총 %d 건\n", list.size());
 
 	}

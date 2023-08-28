@@ -3,11 +3,11 @@ package org.galapagos.jelly.command;
 import org.galapagos.common.cli.Input;
 import org.galapagos.common.cli.command.Command;
 import org.galapagos.jelly.dao.TravelDao;
-import org.galapagos.jelly.dao.TravelDaoImpl;
+import org.galapagos.jelly.dao.TravelMySQLDaoImpl;
 import org.galapagos.jelly.vo.TravelVO;
 
 public class TravelDetailCommand implements Command {
-	TravelDao dao = TravelDaoImpl.getInstance();
+	TravelDao dao = TravelMySQLDaoImpl.getInstance();
 
 	@Override
 	public void execute() {

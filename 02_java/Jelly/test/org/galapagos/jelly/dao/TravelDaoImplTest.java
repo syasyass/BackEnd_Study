@@ -8,16 +8,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.galapagos.jelly.vo.PageRequest;
 import org.galapagos.jelly.vo.Region;
 import org.galapagos.jelly.vo.TravelVO;
 import org.junit.jupiter.api.Test;
 
 class TravelDaoImplTest {
-	TravelDao dao = TravelDaoImpl.getInstance();
+//	TravelDao dao = TravelOracleDaoImpl.getInstance();
+	TravelDao dao = TravelMySQLDaoImpl.getInstance();
 
 	@Test
 	void testGetInstance() {
-		TravelDao dao2 = TravelDaoImpl.getInstance();
+		TravelDao dao2 = TravelMySQLDaoImpl.getInstance();
 		assertSame(dao, dao2);
 	}
 
@@ -30,10 +32,12 @@ class TravelDaoImplTest {
 
 	@Test
 	void testGetPage() {
-		List<TravelVO> list = dao.getPage(11, 20);
+		PageRequest pageRequest = new PageRequest(10, 10); // 2번째 페이지
+		List<TravelVO> list = dao.getPage(pageRequest);
 		assertTrue(list.size() == 10);
 
-		list = dao.getPage(111, 120);
+		pageRequest.setStart(110); // 12번째 페이지
+		list = dao.getPage(pageRequest);
 		assertTrue(list.size() == 2);
 		assertEquals(2, list.size());
 	}
@@ -53,7 +57,7 @@ class TravelDaoImplTest {
 	@Test
 	void testSearch() {
 		List<TravelVO> list = dao.search("%해수욕장%");
-		assertEquals(8, list.size());
+		assertEquals(9, list.size());
 	}
 
 	@Test
