@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>ServletTest</display-name>
+  <display-name>chapter02</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -9,15 +9,4 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  
- <!-- Servlet 2.0 버전에서 사용하던 방법 -->
-<!--   <servlet>
-	  <servlet-name>helloServlet</servlet-name>
-	  <servlet-class>com.test.HelloServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	  <servlet-name>helloServlet</servlet-name>
-	  <url-pattern>/world</url-pattern>
-  </servlet-mapping> -->
-  
 </web-app>
