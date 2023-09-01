@@ -35,7 +35,7 @@
   <body>
     <div class="container">
       <h1><i class="fa-solid fa-plane"></i>관광지 등록</h1>
-      <form action = "" method="post" class="form mt-5">
+      <form action = "travel_add" method="post" class="form mt-5">
       	<div class="form-group">
       		<label>권역</label>
       		<select name="region" class="form-control" style="width:200px">

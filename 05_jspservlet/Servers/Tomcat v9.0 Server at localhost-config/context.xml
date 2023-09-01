@@ -26,4 +26,15 @@
     <!--
     <Manager pathname="" />
     -->
+   
+    <Resource 
+    	auth="Container" 
+	    driverClassName="com.mysql.cj.jdbc.Driver"
+	    url="jdbc:mysql://localhost:3306/glory_db"
+		username="glory" 
+		password="glory"
+		name="jdbc/mysql" 
+		type="javax.sql.DataSource"  
+		maxActive="4" />
+		
 </Context>

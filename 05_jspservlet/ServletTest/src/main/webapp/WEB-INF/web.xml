@@ -9,11 +9,19 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  
- <!-- Servlet 2.0 버전에서 사용하던 방법 -->
-<!--   <servlet>
+
+<!-- Servlet 2.0 버전에서 사용하던 방법 -->
+<!-- <servlet>
 	  <servlet-name>helloServlet</servlet-name>
 	  <servlet-class>com.test.HelloServlet</servlet-class>
+	  <init-param>
+	  	<param-name>dirPath</param-name>
+	  	<param-value>E:\\Temp</param-value>
+	  </init-param>
+	  <init-param>
+	  	<param-name>userID</param-name>
+	  	<param-value>glory</param-value>
+	  </init-param>
   </servlet>
   <servlet-mapping>
 	  <servlet-name>helloServlet</servlet-name>
