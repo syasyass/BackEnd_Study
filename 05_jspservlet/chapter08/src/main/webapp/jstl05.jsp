@@ -18,7 +18,7 @@
       <fmt:formatDate value="${myDate}" type="both" dateStyle="short" timeStyle="long"/><br>
       <fmt:formatDate value="${myDate}" type="both" dateStyle="long" timeStyle="short"/><br>
       
-      <fmt:formatDate value="${myDate}" pattern="YYYY-MM-dd a hh:mm:ss"/><br>
+      <fmt:formatDate value="${myDate}" pattern="YYYY-MM-dd a hh:mm:ss"/><br> <!-- 가장 많이 쓰는 방식 -->
       
       <h1>JSTL fmt 숫자 실습</h1>
       <fmt:formatNumber value="100000" type="currency"/><br>
