@@ -1,6 +1,7 @@
 package org.galapagos.controller;
 
 import org.galapagos.domain.BoardVO;
+import org.galapagos.domain.Criteria;
 import org.galapagos.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,10 @@ public class BoardController {
 	private BoardService service; // 생성자를 통한 주입 
 	
 	@GetMapping("/list") // View이름: board/list (앞뒤 "/"과 확장자는 prefix, surfix가 붙여줌)
-	public void list(Model model) {
+	public void list(Criteria cri, Model model) {
 		
-		log.info("list");
-		model.addAttribute("list", service.getList()); // model에 list이름으로 실제 데이터가 있는가? => view에 전달 데이터 확인
+		log.info("list: " + cri);
+		model.addAttribute("list", service.getList(cri)); // model에 list이름으로 실제 데이터가 있는가? => view에 전달 데이터 확인
 	}
 	
 	@GetMapping("/register") // 로직이 없어서 Test X
@@ -55,10 +56,13 @@ public class BoardController {
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		log.info("modify: " + board);
 		
-		if(service.modify(board)) {		
+		if(service.modify(board)) {
+		// Flash --> 1회성으로 정보를 전달함
 		rttr.addFlashAttribute("result", "success");
+		rttr.addAttribute("bno", board.getBno());
+		rttr.addAttribute("name", "hong");
 		}
-		return "redirect:/board/list"; // 요청 url
+		return "redirect:/board/get"; // 요청 url
 	}
 	
 	@PostMapping("/remove")

@@ -5,12 +5,26 @@ pageEncoding="UTF-8"%>
 
 <%@ include file = "../layouts/header.jsp" %>
 
+<script>
+		
+	$(document).ready(function(){
+			$('.remove').click(function(){
+				//클릭 이벤트 핸들러 함수
+				//if(!confirm('정말 삭제할까요?')) return;
+				
+				//form을 얻어서 submit() 호출
+				//console.log(document.forms);
+				document.forms.removeForm.submit();
+			});
+		});
+	</script>
+
 <%--개별페이지--%>
 <h1 class="page-header"><i class="far fa-file-alt"></i>${board.title}</h1>
 <div class="d-flex justify-content-between">
-	<div><i class="far fa-user"></i>${board.writer}</div>
+	<div><i class="fas fa-user"></i>${board.writer}</div>
 	<div>
-		<i class="far fa-clock"></i>
+		<i class="fas fa-clock"></i>
 		<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regDate}" />
 	</div>
 </div>
@@ -26,8 +40,12 @@ pageEncoding="UTF-8"%>
 		<i class="fas fa-list"></i>목록</a>
 	<a href="modify?bno=${board.bno}" class="btn btn-primary">
 		<i class="fas fa-edit"></i>수정</a>
-	<a href="remove?bno=${board.bno}" class="btn btn-primary">
+	<a href="#" class="btn btn-danger remove">
 		<i class="fas fa-trash-alt"></i>삭제</a>
 </div>
+
+<form action="remove" method="post" name="removeForm">
+	<input type="hidden" name="bno" value="${board.bno}" />
+</form>
 
 <%@ include file="../layouts/footer.jsp" %>

@@ -85,10 +85,24 @@ public class BoardControllerTest {
 		//삭제 전 데이터베이스 게시물 번호 확인할 것
 		String resultPage = mockMvc.perform(
 					MockMvcRequestBuilders.post("/board/remove")
-						.param("bno", "10")	) // POST 요청 BODY 구성
+						.param("bno", "13")	) // POST 요청 BODY 구성
 					.andReturn().getModelAndView().getViewName();
 
 				log.info(resultPage);
+	}
+	
+	@Test
+	public void testListPaging() throws Exception {
+		log.info(
+				mockMvc
+					.perform(MockMvcRequestBuilders
+							.get("/board/list")
+							.param("pageNum","2")
+							.param("amount", "5")) // board/get?bno=4 요청
+					.andReturn()
+					.getModelAndView() // 모델 객체, View 이름
+					.getModelMap() // 모델 데이터 확인. "board" 값?
+				);
 	}
 
 

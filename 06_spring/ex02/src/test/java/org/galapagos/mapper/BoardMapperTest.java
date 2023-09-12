@@ -1,11 +1,10 @@
 package org.galapagos.mapper;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.galapagos.config.RootConfig;
 import org.galapagos.domain.BoardVO;
+import org.galapagos.domain.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class BoardMapperTest {
 	@Autowired
 	private BoardMapper mapper;
 	
-	@Test
+//	@Test
 	public void testGetList() {
 		List<BoardVO> list = mapper.getList();
 		for(BoardVO b : list) {
@@ -68,6 +67,18 @@ public class BoardMapperTest {
 		int count = mapper.update(board);
 		
 		log.info("UPDATE COUNT: " + count);
+	}
+	
+	@Test
+	public void testPaging() {
+		
+		//10개씩 3페이지
+		Criteria cri = new Criteria(3, 10);
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		
+		for(BoardVO b : list) {
+			log.info(b);
+		}
 	}
 
 }

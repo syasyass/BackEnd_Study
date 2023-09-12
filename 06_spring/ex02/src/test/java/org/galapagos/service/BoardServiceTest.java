@@ -1,9 +1,10 @@
 package org.galapagos.service;
 
-import static org.junit.Assert.fail;
+import java.util.List;
 
 import org.galapagos.config.RootConfig;
 import org.galapagos.domain.BoardVO;
+import org.galapagos.domain.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,11 @@ public class BoardServiceTest {
 
 	@Test
 	public void testGetList() {
-		for(BoardVO board: service.getList()) {
-			log.info(board);
+		
+		List<BoardVO> list = service.getList(new Criteria(2, 10));
+		
+		for(BoardVO board: list) {
+			log.info(board);	
 		}
 //		service.getList().forEach(board -> log.info(board));
 	}
