@@ -69,7 +69,7 @@ public class BoardMapperTest {
 		log.info("UPDATE COUNT: " + count);
 	}
 	
-	@Test
+//	@Test
 	public void testPaging() {
 		
 		//10개씩 3페이지
@@ -79,6 +79,21 @@ public class BoardMapperTest {
 		for(BoardVO b : list) {
 			log.info(b);
 		}
+	}
+	
+//	@Test
+	public void testInsert2() {
+	
+		for(int i=0; i< 260; i++) {
+		BoardVO board = new BoardVO();
+		board.setTitle("새로 작성하는 글" + i);
+		board.setContent("새로 작성하는 내용" + i);
+		board.setWriter("newbie"+i%5);
+		
+		mapper.insert(board);
+		}
+		
+//		log.info(board);
 	}
 
 }

@@ -6,9 +6,16 @@ pageEncoding="UTF-8"%>
 <%@ include file = "../layouts/header.jsp" %>
 
 <script>
-		
 	$(document).ready(function(){
-			$('.remove').click(function(){
+		$('.list').click(function(){
+			document.forms.listForm.submit();
+		});
+		
+		$('.modify').click(function(){
+			document.forms.modifyForm.submit();
+		});
+		
+		$('.remove').click(function(){
 				//클릭 이벤트 핸들러 함수
 				//if(!confirm('정말 삭제할까요?')) return;
 				
@@ -36,16 +43,29 @@ pageEncoding="UTF-8"%>
 </div>
 
 <div class="mt-4">
-	<a href="list" class="btn btn-primary">
+	<a href="#" class="btn btn-primary list">
 		<i class="fas fa-list"></i>목록</a>
-	<a href="modify?bno=${board.bno}" class="btn btn-primary">
+	<a href="#" class="btn btn-primary modify">
 		<i class="fas fa-edit"></i>수정</a>
 	<a href="#" class="btn btn-danger remove">
 		<i class="fas fa-trash-alt"></i>삭제</a>
 </div>
 
+<form action="/board/list" method="get" id="listForm">
+	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+	<input type="hidden" name="amount" value="${cri.amount}" />
+</form>
+
+<form action="/board/modify" method="get" id="modifyForm">
+	<input type="hidden" name="bno" value="${board.bno}" />
+	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+	<input type="hidden" name="amount" value="${cri.amount}" />
+</form>
+
 <form action="remove" method="post" name="removeForm">
 	<input type="hidden" name="bno" value="${board.bno}" />
+	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+	<input type="hidden" name="amount" value="${cri.amount}" />
 </form>
 
 <%@ include file="../layouts/footer.jsp" %>

@@ -17,3 +17,7 @@
 	background-size: cover;
 	color: black;
 }
+
+a.page-link {
+	border-width: 0px;
+}
