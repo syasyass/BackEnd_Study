@@ -26,7 +26,7 @@ public class BoardController {
 	private BoardService service; // 생성자를 통한 주입 
 	
 	@GetMapping("/list") // View이름: board/list (앞뒤 "/"과 확장자는 prefix, surfix가 붙여줌)
-	public void list(Criteria cri, Model model) {
+	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri)); // model에 list이름으로 실제 데이터가 있는가? => view에 전달 데이터 확인
@@ -67,14 +67,22 @@ public class BoardController {
 		
 		log.info("modify: " + board);
 		
-		if(service.modify(board)) {
+		// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
+//		if(service.modify(board)) {
 		// Flash --> 1회성으로 정보를 전달함
-		rttr.addFlashAttribute("result", "success");
-		rttr.addAttribute("bno", board.getBno());
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		}
-		return "redirect:/board/get"; // 요청 url
+//		rttr.addFlashAttribute("result", "success");
+//		rttr.addAttribute("bno", board.getBno());
+//		rttr.addAttribute("pageNum", cri.getPageNum());
+//		rttr.addAttribute("amount", cri.getAmount());
+//		rttr.addAttribute("type", cri.getType());
+//		rttr.addAttribute("keyword", cri.getKeyword());
+//		}
+//		return "redirect:/board/get"; // 요청 url
+		
+		// 위의 코드를 Criteria의 getLinkWithBno를 활용해 값 넘기기
+		service.modify(board);
+		
+		return "redirect:" + cri.getLinkWithBno("/board/get", board.getBno());
 	}
 	
 	@PostMapping("/remove")
@@ -83,12 +91,18 @@ public class BoardController {
 			RedirectAttributes rttr) {
 		log.info("remove..." + bno);
 		
-		if(service.remove(bno)) {		
-		rttr.addFlashAttribute("result", "success");
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		}
-		return "redirect:/board/list"; // 요청 url
+		// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
+//		if(service.remove(bno)) {		
+//		rttr.addFlashAttribute("result", "success");
+//		rttr.addAttribute("pageNum", cri.getPageNum());
+//		rttr.addAttribute("amount", cri.getAmount());
+//		rttr.addAttribute("type", cri.getType());
+//		rttr.addAttribute("keyword", cri.getKeyword());
+//		}
+//		
+		service.remove(bno);
+		
+		return "redirect:" + cri.getLink("/board/list"); // 요청 url
 	}
 	
 }

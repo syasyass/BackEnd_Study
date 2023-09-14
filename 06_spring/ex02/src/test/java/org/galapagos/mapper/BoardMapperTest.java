@@ -95,5 +95,19 @@ public class BoardMapperTest {
 		
 //		log.info(board);
 	}
+	
+//	@Test
+	public void testSearch() {
+		Criteria cri = new Criteria(); // 기본 생성자로 (1, 10) = 첫번째 페이지
+		
+		cri.setKeyword("새로");
+		cri.setType("TC"); // 제목, 내용에서 검색
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		
+		for(BoardVO b : list) {
+			log.info(b);
+		}
+	}
 
 }

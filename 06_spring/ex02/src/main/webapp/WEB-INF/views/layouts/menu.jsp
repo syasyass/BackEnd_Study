@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
-	<a class="navbar-brand" href="#">
+	<a class="navbar-brand" href="/">
 		<i class="fa-solid fa-house"></i>Backend</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#collapsibleNavbar">
@@ -13,11 +13,14 @@
 	
 		<!--좌측메뉴구성-->
 		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" href="#">메뉴1</a>
+			<li class="nav-item"><a class="nav-link" href="/board.list">
+				<i class="fa-solid fa-chalkboard"></i>
+				게시판</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">메뉴2</a>
+				<a class="nav-link" href="#">
+				<i class="fa-solid fa-plane-departure"></i>
+				여행</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">메뉴3</a>

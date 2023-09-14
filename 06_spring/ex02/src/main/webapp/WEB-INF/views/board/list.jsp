@@ -7,8 +7,8 @@ pageEncoding="UTF-8"%>
 
 <script>
 $(document).ready(function() {
-	let actionForm= $('#actionForm');
-	
+	// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
+/* 	let actionForm= $('#actionForm');
 		$('a.page-link').on('click', function(e) {
 			e.preventDefault();		// 해당 태그의 디폴트 액션 실행을 막음
 			console.log('click');
@@ -16,7 +16,7 @@ $(document).ready(function() {
 			.val($(this).attr('href'));		//input 내 <a href="1"> 등을 찾아 val값을 삽입
 											// attr(속성명) => read / attr(속성명, 값) => write
 											// this는 $('#actionForm')의 jQuery 모두를 가리킴
-		actionForm.submit();
+			actionForm.submit();
 	});
 
 		$('.move').on('click', function(e) {
@@ -26,7 +26,31 @@ $(document).ready(function() {
 			.val($(this).attr('href'));
 			actionForm.attr('action', '/board/get');
 			actionForm.submit();
-		});
+		}); */
+	
+	// required. 필수 요소 체크 코드
+	let searchForm= $('#searchForm'); // 자손
+		$('#searchForm button').on('click', function(e) { // 후손. 검색 버튼
+			let type = searchForm.find('option:selected'); // : 은 상태 선택자
+			if(!type.val()){
+				alert('검색 종류를 선택하세요.');
+				type.focus();
+				return false; //submit 하지 말라는 뜻
+			}
+		
+			let keyword = searchForm.find('input[name="keyword"]');
+			if(!keyword.val()){
+				alert('키워드를 입력하세요.');
+				keyword.focus();
+				return false;
+			}
+			
+			searchForm.find('input[name="pageNum"]').val('1');
+			e.preventDefault();
+			
+			searchForm.submit();
+		
+		});		
 });
 </script>
 
@@ -34,9 +58,44 @@ $(document).ready(function() {
 <h1 class="page-header">
 <i class="fas fa-list"></i> Board List</h1>
 
-<div>
+<%-- <div>
 	총 ${pageMaker.total} 건
 	(${pageMaker.cri.pageNum} 페이지 / 총 ${pageMaker.totalPage} 페이지)
+</div> --%>
+
+<!-- d-flex를 쓰면 안쪽 코드들이 inline-block으로 바뀜. 폭에 의한 콘텐츠 크기를 재기 때문에 한 줄로. -->
+<div class="d-flex justify-content-between align-items-center my-4">
+	<div class=" ">
+		총 ${pageMaker.total} 건
+		( ${pageMaker.cri.pageNum} ... ${pageMaker.totalPage})
+	</div>
+	<div>
+		<form id="searchForm" method="get" class="d-flex" >
+			<input type = "hidden" name="pageNum" value="1">
+			<select name="type" class="form-select rounded-0 ml-1">
+				<option value="" ${pageMaker.cri.type == null ? 'selected' : ''}>
+					-- 검색대상선택 --</option>
+				<option value="T" ${pageMaker.cri.type eq 'T' ? 'selected' : ''}>
+					제목</option>
+				<option value="C" ${pageMaker.cri.type eq 'C' ? 'selected' : ''}>
+					내용</option>
+				<option value="W" ${pageMaker.cri.type eq 'W' ? 'selected' : ''}>
+					작성자</option>
+				<option value="TC" ${pageMaker.cri.type eq 'TC' ? 'selected' : ''}>
+					제목+내용</option>
+				<option value="TW" ${pageMaker.cri.type eq 'TW' ? 'selected' : ''}>
+					제목+작성자</option>
+				<option value="TWC" ${pageMaker.cri.type eq 'TWC' ? 'selected' : ''}>
+					제목+내용+작성자</option>
+			</select>
+			<div class="input-group">
+				<input type="text" name="keyword" class="form-control rounded-0"
+					value="${pageMaker.cri.keyword}" />
+				<button type="submit" class="btn btn-success rounded-0">
+					<i class="fa-solid fa-magnifying-glass"></i> 검색</button>
+			</div>
+		</form>
+	</div>
 </div>
 
 <table class="table table-striped table-hover">
@@ -53,8 +112,8 @@ $(document).ready(function() {
 		<c:forEach var="board" items="${list}">
 			<tr>
 				<td style="width:60px">${board.bno}</td>
-				<td>
-					<a class="move" href="${board.bno}">${board.title}</a>
+				<td><a class="move" href="${cri.getLinkWithBno('get', board.bno)}">
+					${board.title}</a>
 				</td>
 				<td style="width:100px">${board.writer}</td>
 				<td style="width:130px">
@@ -72,49 +131,14 @@ $(document).ready(function() {
 	</a>
 </div>
 
-<form id="actionForm" action="/board/list" method="get">
-	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" /> <!-- 클릭할 때 a태그 내 내용 변경 -->
-	<input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
-</form>
+<%@ include file="../common/pagination.jsp" %>
 
-<ul class="pagination justify-content-center">
-	<c:if test="${pageMaker.cri.pageNum > 1}">
-		<li class="page-item">
-			<a class="page-link" href="1"> <!-- 1은 페이지 번호 -->
-				<i class="fa-soild fa-backward-step"></i>
-			</a>
-		</li>
-	</c:if>
-	
-	<c:if test="${pageMaker.cri.pageNum > 1}">
-		<li class="page-item">
-			<a class="page-link" href="${pageMaker.startPage-1}">
-				<i class="fa-soild fa-angle-left"></i>
-			</a>
-		</li>
-	</c:if>
-	
-	<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-		<li class="page-item ${ pageMaker.cri.pageNum == num ? 'active' : '' }">
-			<a class="page-link" href="${num}">${num}</a>
-		</li>	
-	</c:forEach>
-	
-	<c:if test="${pageMaker.next}">
-		<li class="page-item">
-			<a class="page-link" href="${pageMaker.endPage+1}">
-				<i class="fa-soild fa-angle-right"></i>
-			</a>
-		</li>
-	</c:if>
-	
-	<c:if test="${pageMaker.cri.pageNum < pageMaker.totalPage}">
-		<li class="page-item">
-			<a class="page-link" href="${pageMaker.totalPage}">
-				<i class="fa-soild fa-forward-step"></i>
-			</a>
-		</li>
-	</c:if>
-</ul>
+<!-- Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐 -->
+<!-- <form id="actionForm" action="/board/list" method="get">
+	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" /> <!-- 클릭할 때 a태그 내 내용 변경 -->
+<!-- <input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
+	<input type="hidden" name="type" value="${pageMaker.cri.type}" />
+	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}" />
+</form> -->
 
 <%@ include file = "../layouts/footer.jsp" %>

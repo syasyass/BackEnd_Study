@@ -45,7 +45,7 @@ $('#content').summernote('fontName', 'Arial');
 				<i class="fas fa-undo"></i>확인</button>	
 			<button type="reset" class="btn btn-primary">
 				<i class="fas fa-undo"></i>취소</button>	
-			<a href="list" class="btn btn-primary">
+			<a href="javascript:history.back()" class="btn btn-primary"> <!--history.back() : 캐시된 것을 가져옴-->
 				<i class="fas fa-list"></i>목록</a>
 		</form>
 	</div>

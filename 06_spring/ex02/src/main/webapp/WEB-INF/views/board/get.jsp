@@ -7,15 +7,16 @@ pageEncoding="UTF-8"%>
 
 <script>
 	$(document).ready(function(){
-		$('.list').click(function(){
+		// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
+/* 		$('.list').click(function(){
 			document.forms.listForm.submit();
 		});
 		
 		$('.modify').click(function(){
 			document.forms.modifyForm.submit();
-		});
+		}); */
 		
-		$('.remove').click(function(){
+		$('.remove').click(function(){ //post라서 .list, .modify와 달리 별도 처리 필요
 				//클릭 이벤트 핸들러 함수
 				//if(!confirm('정말 삭제할까요?')) return;
 				
@@ -43,29 +44,36 @@ pageEncoding="UTF-8"%>
 </div>
 
 <div class="mt-4">
-	<a href="#" class="btn btn-primary list">
+	<a href="${cri.getLink('list')}" class="btn btn-primary list">
 		<i class="fas fa-list"></i>목록</a>
-	<a href="#" class="btn btn-primary modify">
+	<a href="${cri.getLinkWithBno('modify', board.bno)}" class="btn btn-primary modify">
 		<i class="fas fa-edit"></i>수정</a>
 	<a href="#" class="btn btn-danger remove">
 		<i class="fas fa-trash-alt"></i>삭제</a>
 </div>
 
-<form action="/board/list" method="get" id="listForm">
+<!-- Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐 -->
+<%-- <form action="/board/list" method="get" id="listForm">
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />
+	<input type="hidden" name="type" value="${cri.type}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />
 </form>
 
 <form action="/board/modify" method="get" id="modifyForm">
 	<input type="hidden" name="bno" value="${board.bno}" />
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />
-</form>
+	<input type="hidden" name="type" value="${cri.type}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />
+</form> --%>
 
 <form action="remove" method="post" name="removeForm">
 	<input type="hidden" name="bno" value="${board.bno}" />
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />
+	<input type="hidden" name="type" value="${cri.type}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />
 </form>
 
 <%@ include file="../layouts/footer.jsp" %>
