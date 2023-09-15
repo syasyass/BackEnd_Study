@@ -20,7 +20,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
-		return "redirect:/board/list";
+		return "redirect:/travel/list";
 	}
 	
 }

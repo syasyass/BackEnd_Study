@@ -5,11 +5,11 @@
 
 <configuration>
 	<settings>
-		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="mapUnderscoreToCamelCase" value="true" /> <!-- DB의 언더바_ 변수명을 캐멀 케이스로 변경 -->
 	</settings>
 	
 	<typeAliases>
-		<package name="org.galapagos.domain" />		
+		<package name="org.galapagos.domain" />	<!-- 패키지 별명 설정 -->	
 	</typeAliases>
 	
 </configuration>

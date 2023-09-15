@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-@AllArgsConstructor
+@AllArgsConstructor //생성자를 통해 와이어링 할 수 있다는 것을 설명하기 위해 작성 (@Autowired를 대신하는 역할)
 public class BoardServiceImpl implements BoardService {
 
 //	@Autowired
