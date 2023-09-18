@@ -1,11 +1,17 @@
 package org.galapagos.controller;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.galapagos.domain.BoardVO;
 import org.galapagos.domain.Criteria;
 import org.galapagos.domain.PageDTO;
 import org.galapagos.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +31,20 @@ public class BoardController {
 //	@Autowired //Autowired로 주입
 	private BoardService service; // 생성자를 통한 주입 
 	
+	@ModelAttribute("searchTypes")
+	public Map<String, String> searchTypes() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("", "-- 검색대상선택 --");
+		map.put("T", "제목");
+		map.put("W", "작성자");
+		map.put("C", "내용");
+		map.put("TC", "제목+내용");
+		map.put("TW", "제목+작성자");
+		map.put("TWC", "제목+작성자+내용");
+		
+		return map;		
+	}
+	
 	@GetMapping("/list") // View이름: board/list (앞뒤 "/"과 확장자는 prefix, surfix가 붙여줌)
 	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		
@@ -39,13 +59,19 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register") // 로직이 없어서 Test X
-	public void register() {
+	public void register(@ModelAttribute("board") BoardVO board) {
 		log.info("register");
 	}
 
 	@PostMapping("/register") // POST 요청의 리턴 타입은 String
-	public String register(BoardVO board, RedirectAttributes rttr) {
+	public String register(
+			@Valid @ModelAttribute("board") BoardVO board,
+			Errors errors,
+			RedirectAttributes rttr) {
 		log.info("register: " + board);
+		if(errors.hasErrors()) {
+			return "board/register";
+		}
 		
 		service.register(board);
 		
@@ -61,25 +87,17 @@ public class BoardController {
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board, 
+	public String modify(
+			@Valid @ModelAttribute("board") BoardVO board,
+			Errors errors,
 			@ModelAttribute("cri") Criteria cri,
 			RedirectAttributes rttr) {
 		
+		if(errors.hasErrors()) {
+			return "board/modify";
+		}
+		
 		log.info("modify: " + board);
-		
-		// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
-//		if(service.modify(board)) {
-		// Flash --> 1회성으로 정보를 전달함
-//		rttr.addFlashAttribute("result", "success");
-//		rttr.addAttribute("bno", board.getBno());
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
-//		rttr.addAttribute("type", cri.getType());
-//		rttr.addAttribute("keyword", cri.getKeyword());
-//		}
-//		return "redirect:/board/get"; // 요청 url
-		
-		// 위의 코드를 Criteria의 getLinkWithBno를 활용해 값 넘기기
 		service.modify(board);
 		
 		return "redirect:" + cri.getLinkWithBno("/board/get", board.getBno());

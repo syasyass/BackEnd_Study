@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <%@ include file="../layouts/header.jsp" %>
 
@@ -12,42 +13,43 @@ pageEncoding="UTF-8"%>
 
 <script>
 $(document).ready(function() {
-	$('#content').summernote({
+	$('#description').summernote({
 		height: 300, // 에디터높이
 		focus: true, // 에디터로딩후포커스를맞출지여부
 		lang: "ko-KR",// 한글설정
 	});
 });
 // 기본글꼴설정
-$('#content').summernote('fontName', 'Arial');
+$('#description').summernote('fontName', 'Arial');
 </script>
 
 <h1 class="page-header"><i class="far fa-edit"></i>여행지 정보 수정</h1>
 <div class="panel panel-default">
-	<div class="panel-heading">여행지 정보 수정</div>
 	<div class="panel-body">
-		<form role="form" method="post">
-			<input type="hidden" name="no" value="${travel.no}"/>
-			
+		<form:form modelAttribute="travel" role="form">
+			<form:hidden path="no"/> <!-- register 페이지에 들어가도 상관없음 -->
 			<div class="form-group">
-				<label>권역</label>
-				<input name="region" class="form-control" value="${travel.region}"> <!-- name은 TravelVO에 있는 멤버변수 이름을 사용 -->	
+				<form:label path="region">권역</form:label>
+				<form:input path="region" cssClass="form-control"/> <!-- name은 VO에 있는 멤버변수 이름을 사용 -->	
+				<form:errors path="region" cssClass="error"/>
 			</div>
 			<div class="form-group">
-				<label>제목</label>
-				<input name="title" class="form-control" value="${travel.title}">
+				<form:label path="title">제목</form:label>
+				<form:input path="title" cssClass="form-control"/>
+				<form:errors path="title" cssClass="error"/>
 			</div>
 			<div class="form-group">
-				<label>주소</label>
-				<input name="address" class="form-control" value="${travel.address}">
+				<form:label path="address">주소</form:label>
+				<form:input path="address" cssClass="form-control"/>
 			</div>
 			<div class="form-group">
-				<label>전화번호</label>
-				<input name="phone" class="form-control" value="${travel.phone}">
+				<form:label path="phone">전화번호</form:label>
+				<form:input path="phone" cssClass="form-control"/>
 			</div>
 			<div class="form-group">
-				<label>내용</label> <!-- id는 summernote 용 --> 
-				<textarea class="form-control" id="content" name="description" rows="10">${travel.description}</textarea>
+				<form:label path="description">내용</form:label> <!-- id는 summernote 용 --> 
+				<form:textarea cssClass="form-control" path="description"></form:textarea>
+				<form:errors path="description" cssClass="error"/>
 			</div>
 			
 			<button type="submit" class="btn btn-primary">
@@ -56,7 +58,7 @@ $('#content').summernote('fontName', 'Arial');
 				<i class="fas fa-undo"></i>취소</button>	
 			<a href="${cri.getLink('get')}&no=${travel.no}" class="btn btn-primary get">
 				<i class="fas fa-list"></i>돌아가기</a>
-		</form>
+		</form:form >
 	</div>
 </div>
 

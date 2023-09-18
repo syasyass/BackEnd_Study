@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <%@ include file="../layouts/header.jsp" %>
 
@@ -22,23 +23,26 @@ $(document).ready(function() {
 $('#content').summernote('fontName', 'Arial');
 </script>
 
-<%--개별페이지--%>
-<h1 class="page-header"><i class="far fa-edit"></i>Board Register</h1>
+<h1 class="page-header"><i class="far fa-edit"></i>글 작성하기</h1>
 <div class="panel panel-default">
-	<div class="panel-heading">board Register</div>
 	<div class="panel-body">
-		<form role="form" method="post">
+		<form:form modelAttribute="board" role="form">
+			<form:hidden path="bno"/>
+			
 			<div class="form-group">
-				<label>Title</label>
-				<input name="title" class="form-control"> <!-- name은 BoardVO에 있는 멤버변수 이름을 사용 -->	
+				<form:label path="title">Title</form:label>
+				<form:input path="title" cssClass="form-control"/> <!-- name은 VO에 있는 멤버변수 이름을 사용 -->	
+				<form:errors path="title" cssClass="error"/>
 			</div>
 			<div class="form-group">
-				<label>Writer</label>
-				<input name="writer" class="form-control">
+				<form:label path="writer">Writer</form:label>
+				<form:input path="writer" cssClass="form-control"/>
+				<form:errors path="writer" cssClass="error"/>
 			</div>
 			<div class="form-group">
-				<label>Content</label>
-				<textarea class="form-control" id="content" name="content" rows="10"></textarea>
+				<form:label path="content">내용</form:label> <!-- id는 summernote 용 --> 
+				<form:textarea path="content" cssClass="form-control"></form:textarea>
+				<form:errors path="content" cssClass="error"/>
 			</div>
 			
 			<button type="submit" class="btn btn-primary">
@@ -47,7 +51,7 @@ $('#content').summernote('fontName', 'Arial');
 				<i class="fas fa-undo"></i>취소</button>	
 			<a href="javascript:history.back()" class="btn btn-primary"> <!--history.back() : 캐시된 것을 가져옴-->
 				<i class="fas fa-list"></i>목록</a>
-		</form>
+		</form:form>
 	</div>
 </div>
 
