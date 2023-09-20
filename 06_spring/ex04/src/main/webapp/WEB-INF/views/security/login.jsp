@@ -18,5 +18,9 @@
 	비밀번호 :
 	<input type="password" name="password"/><br> <!-- password는 정해져 있는 name임 -->
 	
+	<label>
+		<input type="checkbox" name="remember-me"> 로그인 유지
+	</label>
+	
 	<input type="submit" value="로그인">
 </form>

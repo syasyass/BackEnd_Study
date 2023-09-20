@@ -1,13 +1,20 @@
 package org.galapagos.config;
 
+import javax.sql.DataSource;
+
+import org.galapagos.security.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import lombok.extern.log4j.Log4j;
 
@@ -16,9 +23,25 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	@Autowired
+	private DataSource dataSource;
+	
+	@Bean
+	public UserDetailsService customUserService() {
+		return new CustomUserDetailsService();
+	}
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+		repo.setDataSource(dataSource);
+		
+		return repo;
 	}
 	
 	@Override
@@ -39,6 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.invalidateHttpSession(true)		// 세션invalidate
 			.deleteCookies("remember-me", "JSESSION-ID")	// 삭제할 쿠키 목록
 			.logoutSuccessUrl("/security/logout");	//로그아웃 이후 이동할 페이지. get
+		
+		http.rememberMe()	//remember-me 기능 설정
+			.key("Galapagos")	// 암호화 할 때 사용한 보안 문자열. 이게 노출되면 암호화를 풀 수 있으므로, 보통은 난수 형태의 긴 문자열을 사용함.
+			.tokenRepository(persistentTokenRepository())
+			.tokenValiditySeconds(7*24*60*60);	// 7일 후 만료. 만약 명시적으로 logout을 해 줄 경우, logout에서 remember-me 쿠키를 삭제하므로 사라짐.
 	}
 
 	@Override
@@ -56,6 +84,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //			.password("{noop}1234")	// 비밀번호, {noop}는 암호화 없음 의미 (no operation 약자)
 			.password("$2a$10$YpK24Ik1JCkZUCSMM5rEI.1lRLVdiamjr.Fp0SIqD7b3KFVr7yqx6")
 			.roles("MEMBER");
+		
+		auth.userDetailsService(customUserService())
+			.passwordEncoder(passwordEncoder());
+		
 	}
 
 }
