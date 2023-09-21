@@ -25,4 +25,16 @@
 			on m.username = a.username
 		where m.username = #{username}
 	</select>
+	
+	<insert id = "insert">
+		insert into tbl_member(username, password, email)
+		values(#{username}, #{password}, #{email})
+	</insert>
+	
+	<insert id = "insertAuth">
+		insert into tbl_member_auth(username, auth)
+		values(#{username}, #{auth})
+	</insert>
+	
+	
 </mapper>

@@ -125,3 +125,7 @@ create table persistent_logins(
 	last_used timestamp not null
 );
 
+select * from tbl_member_auth order by auth;
+
+select * from tbl_member order by username;
+

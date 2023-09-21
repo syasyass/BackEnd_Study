@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import lombok.extern.log4j.Log4j;
 
@@ -46,13 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		CharacterEncodingFilter filter = new CharacterEncodingFilter();
+		filter.setEncoding("UTF-8");
+		filter.setForceEncoding(true);
+		
+		http.addFilterBefore(filter, CsrfFilter.class); // csrf 토큰 처리하는 필터보다 앞에다 이 문자셋 필터를 놓아라
+		
 		http.authorizeRequests()
-			.antMatchers("/security/all").permitAll()
-			.antMatchers("/security/admin").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/security/member").access("hasRole('ROLE_MEMBER')");
+			.antMatchers("/security/profile")
+			.authenticated(); // 로그인 한 사람만 접근 가능함
 		
 		http.formLogin()	// 로그인 설정 시작
-			.loginPage("/security/login")	// 로그인 페이지 URL. GET요청. 직접 만들기
+			.loginPage("/security/login?error=login_required")	// 로그인 페이지 URL. GET요청. 로그인 안 하고 접근한 경우 리다이렉트
 			.loginProcessingUrl("/security/login")	//로그인 POST URL. Security가 해 줌. Form action에 제시할 URL
 			.defaultSuccessUrl("/")		// 로그인 성공시 이동할 페이지. 디폴트 home 페이지
 			.failureUrl("/security/login?error=true");	//el에서 접근 : param.error

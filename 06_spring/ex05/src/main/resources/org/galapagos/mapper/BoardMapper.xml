@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.galapagos.mapper.BoardMapper">
+
+	<select id="getList" resultType="org.galapagos.domain.BoardVO">
+		<!-- 이미 컴파일 된 데이터라 그냥 사용한다. +< >같은 기호를 태그로 오해하지 말고 문자 그대로 사용하라는 의미 -->
+		<![CDATA[ 
+		select * from tbl_board
+		order by bno desc
+		limit 0, 10
+		]]>
+	</select>
+	
+	<select id="getListWithPaging" resultType="BoardVO">
+		select * from tbl_board
+		<where>
+			<include refid="criteria"></include>
+		</where>
+		order by bno desc
+		limit #{offset}, #{amount}
+	</select>
+
+	
+	<insert id = "insert"> <!-- 호출시 객체 1개가 매개변수로 전달 -->
+		insert into tbl_board (title, content, writer)
+		values (#{title}, #{content}, #{writer}) <!-- obj.get프로퍼티명(); presentence의 ?에 해당 -->
+	</insert>
+	
+	<insert id="insertSelectKey">
+		insert into tbl_board (title, content, writer)
+		values (#{title}, #{content}, #{writer})
+		
+		<selectKey resultType= "Long" keyProperty="bno" keyColumn="bno" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="read" resultType="org.galapagos.domain.BoardVO">
+		select * from tbl_board where bno = #{bno} <!-- PK. 매개변수 primitive 값 1개 (이름 상관없음. bno 아니어도 됨) -->
+	</select>
+	
+	<delete id="delete">
+		delete from tbl_board where bno= #{bno} <!-- PK. 매개변수 primitive 값 1개 (이름 상관없음. bno 아니어도 됨) -->
+	</delete>
+	
+	<update id="update">
+		update tbl_board set
+			title = #{title},
+			content = #{content},
+			writer = #{writer},
+			update_date = now()
+		where bno = #{bno}
+	</update>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tbl_board
+		<where>
+			<include refid="criteria"></include>
+		</where>
+	</select>	
+	
+	<sql id="criteria"> <!-- 중복 SQL 구문 분리, id 지정 -->
+		<trim prefixOverrides = "OR">
+			<foreach item = "type" collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like CONCAT('%',#{keyword},'%')
+						</when>
+						<when test="type == 'C'.toString()">
+							content like CONCAT('%',#{keyword},'%')
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like CONCAT('%',#{keyword},'%')
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>	
+	</sql>	
+	
+</mapper>

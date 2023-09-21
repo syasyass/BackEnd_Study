@@ -27,15 +27,16 @@
 				<a class="nav-link" href="#">메뉴3</a>
 			</li>
 		</ul>
-		
-		<!-- 로그인 상태 -->
+
 		<sec:authorize access="isAuthenticated()">
 		<ul class="navbar-nav ml-auto">
+				<sec:authentication property="principal.username" var="username"/>
+				
+		<!-- 로그인 상태 -->
 			<li class="nav-item">
-				<a class="nav-link" href="#">
-					<img src="https://randomuser.me/api/portraits/men/12.jpg"
-					class="avatar-sm"/>
-					<sec:authentication property="principal.username"/> 
+				<a class="nav-link" href="/security/profile">
+					<img src="/security/avatar/sm/${username}" class="avatar-sm"/>
+					${username}
 				</a>
 			</li>
 			<li class="nav-item">
