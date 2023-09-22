@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 		});
 	</script>
 
-<h1 class="page-header">
+<h1 class="page-header mt-4">
 <i class="far fa-file-alt"></i> ${travel.title}
 </h1>
 <div class="d-flex justify-content-between">
@@ -48,13 +48,16 @@ pageEncoding="UTF-8"%>
 <div class="mt-4">
 	<a href="${cri.getLink('list')}" class="btn btn-primary list">
 		<i class="fas fa-list"></i>목록</a>
+	<sec:authorize access="hasRole('ROLE_MANAGER')">
 	<a href="${cri.getLink('modify')}&no=${travel.no}" class="btn btn-primary modify">
 		<i class="fas fa-edit"></i>수정</a>
 	<a href="#" class="btn btn-danger remove">
 		<i class="fas fa-trash-alt"></i>삭제</a>
+	</sec:authorize>
 </div>
 
 <form action="remove" method="post" name="removeForm">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" name="no" value="${travel.no}" />
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />
@@ -92,19 +95,7 @@ pageEncoding="UTF-8"%>
 		  alert("잘못된 주소입니다.");
 	  }
   });
-  
-  
-/*   //마커가 표시될 위치
-  var markerPosition = new kakao.maps.LatLng(35.8489991, 127.1229887);
-  
-  //마커 생성
-  var marker = new kakao.maps.Marker({
-	  position: markerPosition
-  });
-  
-  //마커가 지도 위에 표시되도록 설정
-  marker.setMap(map); */
-  
+ 
 </script>
 
 <%@ include file="../layouts/footer.jsp" %>

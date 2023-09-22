@@ -3,11 +3,9 @@ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../layouts/header.jsp" %>
-
-
-<h1>100대 관광지</h1>
-
 <%@ include file="../common/search_bar.jsp" %>
+
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -31,12 +29,14 @@ pageEncoding="UTF-8"%>
 	</tbody>
 </table>
 
-<div class="text-right">
-	<a href="register" class="btn btn-primary">
-	<i class="far fa-edit"></i>
-	글쓰기
-	</a>
-</div>
+<sec:authorize access="hasRole('ROLE_MANAGER')">
+	<div class="text-right">
+		<a href="register" class="btn btn-primary">
+		<i class="far fa-edit"></i>
+		추가
+		</a>
+	</div>
+</sec:authorize>
 
 <%@ include file="../common/pagination.jsp" %>
 

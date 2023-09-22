@@ -28,9 +28,9 @@
 			</li>
 		</ul>
 
-		<sec:authorize access="isAuthenticated()">
 		<ul class="navbar-nav ml-auto">
-				<sec:authentication property="principal.username" var="username"/>
+		<sec:authorize access="isAuthenticated()">
+				<sec:authentication property="principal.username" var="username"/> <!-- username 스코프 생성 -->
 				
 		<!-- 로그인 상태 -->
 			<li class="nav-item">
@@ -44,8 +44,8 @@
 					<i class="fa-solid fa-right-from-bracket"></i> 로그아웃
 				</a>
 			</li>
-		</ul>
 		</sec:authorize>
+		</ul>
 		
 		<!-- 로그아웃 된 상태 -->
 		<sec:authorize access="isAnonymous()">

@@ -23,10 +23,11 @@ $(document).ready(function() {
 $('#description').summernote('fontName', 'Arial');
 </script>
 
-<h1 class="page-header"><i class="far fa-edit"></i>여행지 등록</h1>
+<h1 class="page-header"><i class="far fa-edit mt-4"></i>여행지 등록</h1>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<form:form modelAttribute="travel" role="form">			
+		<form:form modelAttribute="travel" role="form">	
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
 			<div class="form-group">
 				<form:label path="region">권역</form:label>
 				<form:input path="region" cssClass="form-control"/> <!-- name은 VO에 있는 멤버변수 이름을 사용 -->	

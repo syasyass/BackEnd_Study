@@ -125,7 +125,34 @@ create table persistent_logins(
 	last_used timestamp not null
 );
 
-select * from tbl_member_auth order by auth;
+select * from tbl_member_auth order by username;
 
 select * from tbl_member order by username;
+
+delete from tbl_member_auth
+where username = 'admin' and auth = 'ROLE_USER';
+
+insert into tbl_member_auth(username, auth)
+values
+	('admin', 'ROLE_USER');
+	
+drop table if exists tbl_comment;
+
+create table tbl_comment(
+no			integer auto_increment primary key,
+bno			integer not null,
+content		varchar(2000) not null,
+writer		varchar(50) not null,
+reg_date	datetime default now(),
+update_date	datetime default now(),
+
+constraint fk_comment_board foreign key(bno) references tbl_board(bno),
+constraint fk_comment_member foreign key(writer)
+references tbl_member(username)
+);
+
+select * from tbl_comment order by bno;
+
+
+
 

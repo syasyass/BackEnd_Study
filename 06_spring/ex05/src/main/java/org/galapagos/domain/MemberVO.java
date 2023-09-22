@@ -12,8 +12,10 @@ import javax.validation.constraints.Size;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import lombok.Data;
+import lombok.extern.log4j.Log4j;
 
 @Data
+@Log4j
 public class MemberVO {
 	@NotBlank(message = "사용자 id는 필수 항목입니다.")
 	@Size(min = 4, message = "사용자 id는 4글자 이상이어야 합니다.")
@@ -38,6 +40,7 @@ public class MemberVO {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		
 		for(AuthVO auth: authList) {
+			log.warn("================================"  + auth);
 			authorities.add(new SimpleGrantedAuthority(auth.getAuth()));
 		}
 		

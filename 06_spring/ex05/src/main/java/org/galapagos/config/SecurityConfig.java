@@ -56,12 +56,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.addFilterBefore(filter, CsrfFilter.class); // csrf 토큰 처리하는 필터보다 앞에다 이 문자셋 필터를 놓아라
 		
+		http.csrf().ignoringAntMatchers("/api/**");
+		
 		http.authorizeRequests()
 			.antMatchers("/security/profile").authenticated() // 로그인 한 사람만 접근 가능함
 			.antMatchers(
 					"/board/register",
 					"/board/modify",
-					"/board/remove").authenticated(); // 로그인 한 사람만 접근 가능함
+					"/board/remove").authenticated() // 로그인 한 사람만 접근 가능함
+			.antMatchers(
+					"/travel/register", 
+					"/travel/modify",
+					"/travel/remove").access("hasRole('ROLE_MANAGER')"); // MANAGER 이상인 ADMIN도 적용됨
 		
 		http.formLogin()	// 로그인 설정 시작
 			.loginPage("/security/login?error=login_required")	// 로그인 페이지 URL. GET요청. 로그인 안 하고 접근한 경우 리다이렉트
@@ -86,16 +92,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		log.info("configure......................");
 		
-		auth.inMemoryAuthentication()	// 메모리에서 사용자 정보 설정
-			.withUser("admin")			// username, 사용자id
-			.password("$2a$10$YpK24Ik1JCkZUCSMM5rEI.1lRLVdiamjr.Fp0SIqD7b3KFVr7yqx6")
-			.roles("ADMIN");			// 역할 설정. 앞에 ROLE_ 안 붙여도 자동으로 붙음
-		
-		auth.inMemoryAuthentication()
-			.withUser("member")
-//			.password("{noop}1234")	// 비밀번호, {noop}는 암호화 없음 의미 (no operation 약자)
-			.password("$2a$10$YpK24Ik1JCkZUCSMM5rEI.1lRLVdiamjr.Fp0SIqD7b3KFVr7yqx6")
-			.roles("MEMBER");
+/* 위의 http로 비번 처리를 해야함. 이 부분은 메모리에 직접 접근하는 방법. 테스트용.
+		 * auth.inMemoryAuthentication() // 메모리에서 사용자 정보 설정 .withUser("admin") //
+		 * username, 사용자id
+		 * .password("$2a$10$YpK24Ik1JCkZUCSMM5rEI.1lRLVdiamjr.Fp0SIqD7b3KFVr7yqx6")
+		 * .roles("ADMIN"); // 역할 설정. 앞에 ROLE_ 안 붙여도 자동으로 붙음
+		 * 
+		 * auth.inMemoryAuthentication() .withUser("member") // .password("{noop}1234")
+		 * // 비밀번호, {noop}는 암호화 없음 의미 (no operation 약자)
+		 * .password("$2a$10$YpK24Ik1JCkZUCSMM5rEI.1lRLVdiamjr.Fp0SIqD7b3KFVr7yqx6")
+		 * .roles("MEMBER");
+		 */
 		
 		auth.userDetailsService(customUserService())
 			.passwordEncoder(passwordEncoder());

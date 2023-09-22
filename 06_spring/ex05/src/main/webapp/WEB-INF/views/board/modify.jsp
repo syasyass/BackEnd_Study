@@ -28,22 +28,20 @@ $('#content').summernote('fontName', 'Arial');
 </script>
 
 <%--개별페이지--%>
-<h1 class="page-header"><i class="far fa-edit"></i>글 수정하기</h1>
+<h1 class="page-header mt-4"><i class="far fa-edit mt-4"></i>글 수정하기</h1>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<form:form modelAttribute="board" role="form">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<form:hidden path="bno"/>
+			<form:hidden path="writer"/>
 			
 			<div class="form-group">
 				<form:label path="title">Title</form:label>
 				<form:input path="title" cssClass="form-control"/> <!-- name은 VO에 있는 멤버변수 이름을 사용 -->	
 				<form:errors path="title" cssClass="error"/>
 			</div>
-			<div class="form-group">
-				<form:label path="writer">Writer</form:label>
-				<form:input path="writer" cssClass="form-control"/>
-				<form:errors path="writer" cssClass="error"/>
-			</div>
+			
 			<div class="form-group">
 				<form:label path="content">내용</form:label> <!-- id는 summernote 용 --> 
 				<form:textarea path="content" cssClass="form-control"></form:textarea>
@@ -59,13 +57,5 @@ $('#content').summernote('fontName', 'Arial');
 		</form:form>
 	</div>
 </div>
-
-<%-- <form id="getForm" action="/board/get" method="get">
-	<input type="hidden" id="bno" name="bno" value="${board.bno}"/>
-	<input type="hidden" name="pageNum" value="${cri.pageNum}"/>
-	<input type="hidden" name="amount" value="${cri.amount}"/>
-	<input type="hidden" name="type" value="${cri.type}" />
-	<input type="hidden" name="keyword" value="${cri.keyword}" />
-</form> --%>
 
 <%@ include file="../layouts/footer.jsp" %>

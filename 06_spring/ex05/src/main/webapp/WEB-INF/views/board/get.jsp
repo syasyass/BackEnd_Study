@@ -5,30 +5,30 @@ pageEncoding="UTF-8"%>
 
 <%@ include file = "../layouts/header.jsp" %>
 
+<script src="/resources/js/rest.js"></script>
+
 <script>
-	$(document).ready(function(){
-		// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
-/* 		$('.list').click(function(){
-			document.forms.listForm.submit();
-		});
-		
-		$('.modify').click(function(){
-			document.forms.modifyForm.submit();
-		}); */
-		
+	$(document).ready(async function(){		// fetch()를 사용하는 함수에 async 작성. 비동기 함수임을 선언
 		$('.remove').click(function(){ //post라서 .list, .modify와 달리 별도 처리 필요
-				//클릭 이벤트 핸들러 함수
-				//if(!confirm('정말 삭제할까요?')) return;
+				if(!confirm('정말 삭제할까요?')) return;
 				
 				//form을 얻어서 submit() 호출
 				//console.log(document.forms);
 				document.forms.removeForm.submit();
 			});
-		});
-	</script>
+	
+	const bno = ${board.bno};
+	
+	const url = '/api/board/' + bno +'/comment';
+	console.log(url);
+	
+	let data = await rest_get(url);
+	console.log(data);
+	
+	});
+</script>
 
-<%--개별페이지--%>
-<h1 class="page-header"><i class="far fa-file-alt"></i>${board.title}</h1>
+<h1 class="page-header mt-4"><i class="far fa-file-alt"></i>${board.title}</h1>
 <div class="d-flex justify-content-between">
 	<div><i class="fas fa-user"></i>${board.writer}</div>
 	<div>
@@ -46,29 +46,16 @@ pageEncoding="UTF-8"%>
 <div class="mt-4">
 	<a href="${cri.getLink('list')}" class="btn btn-primary list">
 		<i class="fas fa-list"></i>목록</a>
+	<c:if test="${username == board.writer}">
 	<a href="${cri.getLinkWithBno('modify', board.bno)}" class="btn btn-primary modify">
 		<i class="fas fa-edit"></i>수정</a>
 	<a href="#" class="btn btn-danger remove">
 		<i class="fas fa-trash-alt"></i>삭제</a>
+	</c:if>
 </div>
 
-<!-- Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐 -->
-<%-- <form action="/board/list" method="get" id="listForm">
-	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
-	<input type="hidden" name="amount" value="${cri.amount}" />
-	<input type="hidden" name="type" value="${cri.type}" />
-	<input type="hidden" name="keyword" value="${cri.keyword}" />
-</form>
-
-<form action="/board/modify" method="get" id="modifyForm">
-	<input type="hidden" name="bno" value="${board.bno}" />
-	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
-	<input type="hidden" name="amount" value="${cri.amount}" />
-	<input type="hidden" name="type" value="${cri.type}" />
-	<input type="hidden" name="keyword" value="${cri.keyword}" />
-</form> --%>
-
 <form action="remove" method="post" name="removeForm">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" name="bno" value="${board.bno}" />
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />

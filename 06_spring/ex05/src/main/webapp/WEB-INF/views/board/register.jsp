@@ -40,11 +40,7 @@ $('#content').summernote('fontName', 'Arial');
 				<form:input path="title" cssClass="form-control"/> <!-- name은 VO에 있는 멤버변수 이름을 사용 -->	
 				<form:errors path="title" cssClass="error"/>
 			</div>
-<%--  			<div class="form-group">
-				<form:label path="writer">Writer</form:label>
-				<form:input path="writer" cssClass="form-control"/>
-				<form:errors path="writer" cssClass="error"/>
-			</div> --%>
+
 			<div class="form-group">
 				<form:label path="content">내용</form:label> <!-- id는 summernote 용 --> 
 				<form:textarea path="content" cssClass="form-control"></form:textarea>

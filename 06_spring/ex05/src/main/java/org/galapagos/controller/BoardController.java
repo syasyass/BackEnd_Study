@@ -109,15 +109,6 @@ public class BoardController {
 			RedirectAttributes rttr) {
 		log.info("remove..." + bno);
 		
-		// Criteria 값을 넘겨주는 getLink() (UriComponentsBuilder)를 사용하게 되면서 필요 없어짐
-//		if(service.remove(bno)) {		
-//		rttr.addFlashAttribute("result", "success");
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
-//		rttr.addAttribute("type", cri.getType());
-//		rttr.addAttribute("keyword", cri.getKeyword());
-//		}
-//		
 		service.remove(bno);
 		
 		return "redirect:" + cri.getLink("/board/list"); // 요청 url
