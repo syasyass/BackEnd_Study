@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set
 			content = #{content},
 			update_date = now()
-		where no = #{no}
+		where no = #{no} order by #{bno} desc
 	</update>
 	
 	<delete id = "delete">
