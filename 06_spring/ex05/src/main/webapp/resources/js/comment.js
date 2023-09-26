@@ -19,7 +19,7 @@ function createCommentTemplate(comment, writer) {
 					</strong>
 					<span class="text-muted ml-3 comment-date">
 						${moment(comment.regDate).format('YYYY-MM-DD hh:mm')}
-					</span>
+					rr</span>
 				</div>
 				<div class="btn-group">
 					${writer && (writer == comment.writer) ? commentUpdatable : ''}

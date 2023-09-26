@@ -153,6 +153,34 @@ references tbl_member(username)
 
 select * from tbl_comment order by bno;
 
+create table tbl_reply(
+no			integer auto_increment primary key,
+cno			integer not null,
+content		varchar(2000) not null,
+writer		varchar(50) not null,
+reg_date	datetime default now(),
+update_date	datetime default now(),
 
+constraint fk_reply_comment foreign key(cno) references tbl_comment(no)
+);
 
+select * from tbl_reply order by no;
 
+select * from tbl_comment;
+
+insert into tbl_reply(cno, writer, content)
+values(4, 'admin', '답글1번 입니다.'),
+		(4, 'admin', '답글2번 입니다.'),
+		(4, 'newbie2', '답글3번 입니다.');
+	
+select
+	c.no, c.bno, c.content c_content, c.writer c_writer,
+	c.reg_date c_reg_date, c.update_date c_update_date,
+	r.no cno, r.content r_content, r.writer r_writer,
+	r.reg_date r_reg_date, r.update_date r_update_date
+from tbl_comment c left outer join tbl_reply r
+	on c.no = r.cno
+where bno = 282
+order by c.no desc, r.no;
+
+select * from tbl_reply;
