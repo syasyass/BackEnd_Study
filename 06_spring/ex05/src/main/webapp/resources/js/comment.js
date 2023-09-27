@@ -1,3 +1,9 @@
+const replyAddable = `
+	<button class="btn btn-light btn-sm reply-add-show-btn">
+		<i class="fa-solid fa-pen-to-square"></i> 답글
+	</button>
+`;
+
 const commentUpdatable = `
 	<button class="btn btn-light btn-sm comment-update-show-btn">
 		<i class="fa-solid fa-pen-to-square"></i> 수정
@@ -22,6 +28,7 @@ function createCommentTemplate(comment, writer) {
 					rr</span>
 				</div>
 				<div class="btn-group">
+					${writer && (writer != comment.writer) ? replyAddable : ''}
 					${writer && (writer == comment.writer) ? commentUpdatable : ''}
 				</div>
 			</div>
@@ -42,8 +49,14 @@ async function loadComments(bno, writer) {	// 글번호, 로그인 유저
 	comments = await rest_get(COMMENT_URL); 	// await가 빠졌기 때문에 promise 객체. 그래서 for 루프를 못 돌림
 	
 	for(let comment of comments) {
-		const commentEl = createCommentTemplate(comment, writer);
-		$('.comment-list').append($(commentEl));
+		const commentEl= $(createCommentTemplate(comment, writer));
+		$('.comment-list').append(commentEl);
+
+		let replyListEl= commentEl.find('.reply-list');
+		for(let reply of comment.replyList) {
+			let replyEl = $(createReplyTemplate(reply, writer));
+			replyListEl.append(replyEl);
+		};
 	}
 }
 
@@ -143,7 +156,7 @@ async function deleteComment(e) {
 	const no = comment.data("no");
 	
 	// api 호출
-	// await rest_delete(COMMENT_URL + no);
+	await rest_delete(COMMENT_URL + no);
 	
 	comment.remove();
 }

@@ -7,11 +7,13 @@ pageEncoding="UTF-8"%>
 </script>
 <script src="/resources/js/rest.js"></script>
 <script src="/resources/js/comment.js"></script>
+<script src="/resources/js/reply.js"></script>
 
 <%@ include file = "../layouts/header.jsp" %>
 
 <script>
 const COMMENT_URL = '/api/board/${param.bno}/comment/';
+const REPLY_URL = '/api/board/${param.bno}/reply/';
 
 	$(document).ready(async function(){		// fetch()를 사용하는 함수에 async 작성. 비동기 함수임을 선언
 		$('.remove').click(function(){ //post라서 .list, .modify와 달리 별도 처리 필요
@@ -50,6 +52,35 @@ const COMMENT_URL = '/api/board/${param.bno}/comment/';
 		//삭제 버튼 클릭
 		$('.comment-list').on('click', '.comment-delete-btn', deleteComment);
 		
+		//// 답글 버튼 이벤트 핸들링
+		// 답글 추가 인터페이스 보이기
+		$('.comment-list').on('click', '.reply-add-show-btn', function(e) {
+			showReplyAdd($(this), writer);			
+		});	
+		
+		// 답글 등록
+		$('.comment-list').on('click', '.reply-add-btn', function(e) {
+			addReply($(this), writer);			
+		});	
+		
+		// 답글 취소
+		$('.comment-list').on('click', '.reply-add-cancel-btn', cancelReply);	
+		
+		// 답글 수정 화면 보여주기
+		$('.comment-list').on('click', '.reply-update-show-btn', function(e) {
+			showUpdateReply($(this));			
+		});	
+		
+		// 답글 수정 등록
+		$('.comment-list').on('click', '.reply-update', function(e) {
+			updateReply($(this));			
+		});	
+		
+		//답글 수정 취소
+		$('.comment-list').on('click', '.reply-update-cancel', cancelReplyUpdate);
+		
+		//답글 삭제
+		$('.comment-list').on('click', '.reply-delete-btn', deleteReply);
 	}); 
 	
 	// 이벤트 대상 확인하기 좋은 console 메시지
