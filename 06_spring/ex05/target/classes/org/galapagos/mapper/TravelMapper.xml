@@ -67,5 +67,11 @@
 			</foreach>
 		</trim>	
 	</sql>
+	
+	<select id="getRandom" resultType="TravelVO">
+		select * from travel
+		order by rand()
+		limit #{count};
+	</select>
 
 </mapper>

@@ -26,6 +26,10 @@ public class TravelServiceImpl implements TravelService {
 	public List<TravelVO> getList(Criteria cri) {
 		return mapper.getList(cri);
 	}
+	
+	public List<TravelVO> getRandom(int count) {
+		return mapper.getRandom(count);
+	}
 
 	@Override
 	public TravelVO get(Long no) { // 조회수 증가는 여기에서 처리

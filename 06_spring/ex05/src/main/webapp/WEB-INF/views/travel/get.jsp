@@ -5,6 +5,15 @@ pageEncoding="UTF-8"%>
 
 <%@ include file = "../layouts/header.jsp" %>
 
+<style>
+.thumb-images img {
+	width: 20%;
+	height: 150px;
+	padding: 2px;
+	object-fit: cover;
+}
+</style>
+
 <script>
 	$(document).ready(function(){
 		$('.remove').click(function(){ //post라서 .list, .modify와 달리 별도 처리 필요
@@ -34,6 +43,10 @@ pageEncoding="UTF-8"%>
 
 <div class="mt-4">
 	${travel.description}
+</div>
+
+<div class="thumb-images my-5 d-flex">
+	<c:forEach var="image" items="${travel.images}"><img src="${image}"></c:forEach>
 </div>
 
 <div class="mt-4">

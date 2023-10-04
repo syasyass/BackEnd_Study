@@ -11,3 +11,7 @@ set
 update travel
 set 	
 	description = replace(description, "<br>", "");
+	
+select * from travel
+order by rand()
+limit 5;
