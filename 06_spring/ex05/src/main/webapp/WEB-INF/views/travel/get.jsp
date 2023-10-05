@@ -5,13 +5,39 @@ pageEncoding="UTF-8"%>
 
 <%@ include file = "../layouts/header.jsp" %>
 
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+
 <style>
-.thumb-images img {
+.thumb-images > a {
 	width: 20%;
+}
+
+.thumb-images img {
+	width: 100%;
 	height: 150px;
 	padding: 2px;
 	object-fit: cover;
 }
+
+.image-panel {
+	width: 300px;
+	height: 270px;
+}
+
+.image-panel > img {
+	width: 300px;
+	height: 200px;
+}
+
+.image-panel > .sm-images > img {
+	width: 20%;
+	height: 60px;
+	object-fit: cover;
+	cursor: pointer;
+}
+
 </style>
 
 <script>
@@ -24,7 +50,17 @@ pageEncoding="UTF-8"%>
 				//console.log(document.forms);
 				document.forms.removeForm.submit();
 			});
+		
+		$('.sm-images > img').mouseenter(function(e){
+			let src = $(this).attr('src');
+			$('.image-panel > img').attr('src', src);
 		});
+		
+		Fancybox.bind('[data-fancybox="gallery"]', {
+			// Your custom options
+			
+		});
+	});
 	</script>
 
 <h1 class="page-header mt-4">
@@ -41,12 +77,21 @@ pageEncoding="UTF-8"%>
 
 <hr>
 
-<div class="mt-4">
+<div class="clearfix mt-4"> <!-- float를 적용시키지 말라는 뜻 -->
+	<div class="image-panel float-left mr-3">
+		<img src="${travel.image}">
+		<div class="sm-images mt-1 d-flex">
+			<c:forEach var="image" items="${travel.images}">
+			<img src="${image}"></c:forEach>
+		</div>
+	</div>
 	${travel.description}
 </div>
 
 <div class="thumb-images my-5 d-flex">
-	<c:forEach var="image" items="${travel.images}"><img src="${image}"></c:forEach>
+	<c:forEach var="image" items="${travel.images}">
+	<a href = "${image}" data-fancybox="gallery">
+	<img src="${image}"></a></c:forEach>
 </div>
 
 <div class="mt-4">
