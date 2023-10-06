@@ -19,7 +19,7 @@
 				게시판</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/travel/list">
+				<a class="nav-link" href="/travel/list?amount=12">
 				<i class="fa-solid fa-plane-departure"></i>
 				여행</a>
 			</li>
