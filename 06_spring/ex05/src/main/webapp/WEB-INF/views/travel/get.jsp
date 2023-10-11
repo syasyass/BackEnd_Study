@@ -9,6 +9,58 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
 
+<c:if test="${not empty username}">
+<style>
+.fa-heart {
+	cursor: pointer;
+}
+</style>
+<script src ="/resources/js/rest.js"><</script>
+<script>
+	$(document).ready(function() {
+		let username = '${username}';
+		
+		const BASE_URL = '/api/travel/heart';
+		
+		//좋아요 추가
+		$('span.heart').on('click', '.fa-heart.fa-regular', async function(e){
+			let tno = parseInt($(this).data("tno"));
+			let heart = { tno, username }; // HeartVO 맵핑
+			console.log(heart);
+			
+			await rest_create(BASE_URL + "/add", heart);
+			
+			let heartCount = $(this).parent().find(".heart-count"); // parent는 span 태그
+			console.log(heartCount);
+			let count = parseInt(heartCount.text());
+			heartCount.text(count+1);
+			
+			$(this) // 아이콘 교체
+				.removeClass('fa-regular')
+				.addClass('fa-solid');
+		});
+		
+		
+		//좋아요 제거
+		$('span.heart').on('click', '.fa-heart.fa-solid', async function(e){
+			let tno = parseInt($(this).data("tno"));
+			
+			// \$는 EL이 아니라는 뜻. JSP가 먼저 서버에서 본 후, 브라우저에서 JS가 보기 때문에, 표시를 해 줌.
+			await rest_delete(`\${BASE_URL}/delete?tno=\${tno}&username=\${username}`);
+			
+			let heartCount = $(this).parent().find(".heart-count"); // parent는 span 태그
+			console.log(heartCount);
+			let count = parseInt(heartCount.text());
+			heartCount.text(count-1);
+			
+			$(this) // 아이콘 교체
+				.removeClass('fa-solid')
+				.addClass('fa-regular');
+		});
+	});
+</script>
+</c:if>
+
 <style>
 .thumb-images > a {
 	width: 20%;
@@ -67,11 +119,16 @@ pageEncoding="UTF-8"%>
 <i class="far fa-file-alt"></i> ${travel.title}
 </h1>
 <div class="d-flex justify-content-between">
-	<div class="mt-4" style="color:fuchsia">
+	<div class="mt-4">
 		${travel.region}
 	</div>
-	<div class="mt-4" style="color:fuchsia">
-		${travel.phone}
+	<div class="mt-4">
+		<span class="heart">
+			<i class="${travel.myHeart ? 'fa-solid' : 'fa-regular'} fa-heart text-danger"
+				data-tno = "${travel.no}"></i>
+			<span class="heart-count">${travel.hearts}</span>
+		</span>
+		&nbsp&nbsp&nbsp<i class="fa-solid fa-phone"> 연락처: 관광안내소 ${travel.phone}</i>
 	</div>
 </div>
 

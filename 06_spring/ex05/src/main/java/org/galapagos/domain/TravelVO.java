@@ -24,6 +24,7 @@ public class TravelVO {
 	private String address;
 	private String phone;
 	private String hearts;
+	private Boolean myHeart;
 	
 	public String getImage() {
 		int i = new Random().nextInt(5) + 1;
@@ -39,6 +40,6 @@ public class TravelVO {
 	}	
 	
 	public String getSummary() {
-		return description.split("<br>")[0];
+		return description.split("<br>")[0].replace("<p>", "");
 	}
 }

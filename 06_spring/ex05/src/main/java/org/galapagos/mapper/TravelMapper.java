@@ -3,6 +3,7 @@ package org.galapagos.mapper;
 import java.util.List;
 
 import org.galapagos.domain.Criteria;
+import org.galapagos.domain.HeartVO;
 import org.galapagos.domain.TravelVO;
 
 public interface TravelMapper {
@@ -21,5 +22,12 @@ public interface TravelMapper {
 	public int update(TravelVO travel);
 
 	public int delete(Long no); // PK 전달
+	
+	// 좋아요 처리
+	public List<Long> getHeartsList(String username);
+	
+	public int addHeart(HeartVO heart);
+	
+	public int deleteHeart(HeartVO heart);
 
 }

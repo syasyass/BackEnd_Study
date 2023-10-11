@@ -1,11 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="../layouts/header.jsp" %>
 <%@ include file="../common/search_bar.jsp" %>
 
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<c:if test="${not empty username}">
+<style>
+.fa-heart {
+	cursor: pointer;
+}
+</style>
+<script src ="/resources/js/rest.js"><</script>
+<script>
+	$(document).ready(function() {
+		let username = '${username}';
+		
+		const BASE_URL = '/api/travel/heart';
+		
+		//좋아요 추가
+		$('span.heart').on('click', '.fa-heart.fa-regular', async function(e){
+			let tno = parseInt($(this).data("tno"));
+			let heart = { tno, username }; // HeartVO 맵핑
+			console.log(heart);
+			
+			await rest_create(BASE_URL + "/add", heart);
+			
+			let heartCount = $(this).parent().find(".heart-count"); // parent는 span 태그
+			console.log(heartCount);
+			let count = parseInt(heartCount.text());
+			heartCount.text(count+1);
+			
+			$(this) // 아이콘 교체
+				.removeClass('fa-regular')
+				.addClass('fa-solid');
+		});
+		
+		
+		//좋아요 제거
+		$('span.heart').on('click', '.fa-heart.fa-solid', async function(e){
+			let tno = parseInt($(this).data("tno"));
+			
+			// \$는 EL이 아니라는 뜻. JSP가 먼저 서버에서 본 후, 브라우저에서 JS가 보기 때문에, 표시를 해 줌.
+			await rest_delete(`\${BASE_URL}/delete?tno=\${tno}&username=\${username}`);
+			
+			let heartCount = $(this).parent().find(".heart-count"); // parent는 span 태그
+			console.log(heartCount);
+			let count = parseInt(heartCount.text());
+			heartCount.text(count-1);
+			
+			$(this) // 아이콘 교체
+				.removeClass('fa-solid')
+				.addClass('fa-regular');
+		});
+	});
+</script>
+</c:if>
 
 <style>
 .card-img-top {
@@ -55,10 +107,11 @@ pageEncoding="UTF-8"%>
 							${travel.title}
 						</a>
 					</h4>
-					<a href="#" class="heart">
-						<i class="fa-regular fa-heart text-danger"></i>
-					</a>
-					${travel.hearts}
+					<span class="heart">
+							<i class="${travel.myHeart ? 'fa-solid' : 'fa-regular'} fa-heart text-danger"
+							data-tno = "${travel.no}"></i>
+						<span class="heart-count">${travel.hearts}</span>
+					</span>
 					<p class="card-text">${travel.summary}</p>
 				</div>
 			</div>

@@ -6,14 +6,14 @@
 <mapper namespace="org.galapagos.mapper.TravelMapper">
 
 	<select id="getTotalCount" resultType="int">
-		select count(*) from travel
+		select count(*) from view_travel
 		<where>
 			<include refid="criteria"></include>
 		</where>
 	</select>
 	
 	<select id="getList" resultType="TravelVO">
-		select * from travel
+		select * from view_travel
 		<where>
 			<include refid="criteria"></include>
 		</where>
@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="read" resultType="org.galapagos.domain.TravelVO">
-		select * from travel
+		select * from view_travel
 		where no = #{no} <!-- PK. 매개변수 primitive 값 1개 (이름 상관없음. bno 아니어도 됨) -->
 	</select>
 	
@@ -69,9 +69,24 @@
 	</sql>
 	
 	<select id="getRandom" resultType="TravelVO">
-		select * from travel
+		select * from view_travel
 		order by rand()
 		limit #{count};
 	</select>
-
+	
+	<!-- 좋아요 처리 관련 -->
+	<select id = "getHeartsList" resultType = "long">
+		select tno from tbl_travel_heart
+		where username = #{username}
+	</select>
+	
+	<insert id = "addHeart">
+		insert into tbl_travel_heart(tno, username)
+		values (#{tno}, #{username})
+	</insert>
+	
+	<delete id = "deleteHeart">
+		delete from tbl_travel_heart
+		wherer tno = #{tno} and username = #{username}
+	</delete>
 </mapper>
