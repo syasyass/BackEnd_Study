@@ -3,13 +3,13 @@ use glory_db;
 drop table if exists tbl_board;
 
 create table tbl_board(
-bno integer auto_increment,
-title varchar(200) not null,
-content text not null,
-writer varchar(50) not null,
-reg_date datetime default now(),
-update_date datetime default now(),
-constraint pk_board primary key(bno)
+	bno integer auto_increment,
+	title varchar(200) not null,
+	content text not null,
+	writer varchar(50) not null,
+	reg_date datetime default now(),
+	update_date datetime default now(),
+	constraint pk_board primary key(bno)
 );
 
 insert into tbl_board(title, content, writer)
@@ -139,29 +139,29 @@ values
 drop table if exists tbl_comment;
 
 create table tbl_comment(
-no			integer auto_increment primary key,
-bno			integer not null,
-content		varchar(2000) not null,
-writer		varchar(50) not null,
-reg_date	datetime default now(),
-update_date	datetime default now(),
-
-constraint fk_comment_board foreign key(bno) references tbl_board(bno),
-constraint fk_comment_member foreign key(writer)
-references tbl_member(username)
+	no			integer auto_increment primary key,
+	bno			integer not null,
+	content		varchar(2000) not null,
+	writer		varchar(50) not null,
+	reg_date	datetime default now(),
+	update_date	datetime default now(),
+	
+	constraint fk_comment_board foreign key(bno) references tbl_board(bno),
+	constraint fk_comment_member foreign key(writer)
+	references tbl_member(username)
 );
 
 select * from tbl_comment order by bno;
 
 create table tbl_reply(
-no			integer auto_increment primary key,
-cno			integer not null,
-content		varchar(2000) not null,
-writer		varchar(50) not null,
-reg_date	datetime default now(),
-update_date	datetime default now(),
-
-constraint fk_reply_comment foreign key(cno) references tbl_comment(no)
+	no			integer auto_increment primary key,
+	cno			integer not null,
+	content		varchar(2000) not null,
+	writer		varchar(50) not null,
+	reg_date	datetime default now(),
+	update_date	datetime default now(),
+	
+	constraint fk_reply_comment foreign key(cno) references tbl_comment(no)
 );
 
 select * from tbl_reply order by no;
@@ -184,3 +184,18 @@ where bno = 282
 order by c.no desc, r.no;
 
 select * from tbl_reply;
+
+drop table if exists tbl_board_attachment;
+create table tbl_board_attachment(
+	no			integer auto_increment primary key,
+	filename	varchar(256) not null,		-- 원본 파일명
+	path		varchar(256) not null,		-- 서버에서의 파일 경로 //동일하지 않도록 업데이트 시간 등을 추가
+	content_type varchar(56),				-- content-type
+	size integer,							-- 파일의 크기
+	bno integer,
+	reg_date	datetime default now(),
+	constraint foreign key (bno) references tbl_board(bno)
+);
+
+select * from tbl_board_attachment;
+

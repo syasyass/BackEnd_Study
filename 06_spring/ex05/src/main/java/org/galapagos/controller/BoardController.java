@@ -1,6 +1,7 @@
 package org.galapagos.controller;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -67,13 +69,14 @@ public class BoardController {
 	public String register(
 			@Valid @ModelAttribute("board") BoardVO board,
 			Errors errors,
+			List<MultipartFile> files,
 			RedirectAttributes rttr) {
 		log.info("register: " + board);
 		if(errors.hasErrors()) {
 			return "board/register";
 		}
 		
-		service.register(board);
+		service.register(board, files);
 		
 		rttr.addFlashAttribute("result", board.getBno());
 		

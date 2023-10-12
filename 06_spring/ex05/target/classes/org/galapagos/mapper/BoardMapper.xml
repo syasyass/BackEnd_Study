@@ -82,4 +82,25 @@
 		</trim>	
 	</sql>	
 	
+	<insert id="insertAttachment">
+		insert into tbl_board_attachment(filename, path, content_type, size, bno)
+		values(#{filename}, #{path}, #{contentType}, #{size}, #{bno})
+	</insert>
+	
+	<select id="getAttachmentList" resultType="BoardAttachmentVO">
+		select * from tbl_board_attachment
+		where bno = #{bno}
+		order by filename
+	</select>
+	
+	<select id="getAttachment" resultType="BoardAttachmentVO">
+		select * from tbl_board_attachment
+		where no = #{no}
+	</select>
+	
+	<delete id="removeAttachment">
+		delete from tbl_board_attachment
+		where no = #{no}
+	</delete>
+	
 </mapper>

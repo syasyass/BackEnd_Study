@@ -1,6 +1,7 @@
 package org.galapagos.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -20,6 +21,8 @@ public class BoardVO {
 	
 	@NotBlank(message="작성자는 필수 항목입니다.")
 	private String writer;
+	
+	List<BoardAttachmentVO> attaches;
 	
 	private Date regDate;
 	private Date updateDate;

@@ -2,10 +2,12 @@ package org.galapagos.service;
 
 import java.util.List;
 
+import org.galapagos.domain.BoardAttachmentVO;
 import org.galapagos.domain.BoardVO;
 import org.galapagos.domain.Criteria;
 import org.galapagos.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -19,8 +21,19 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 	
 	@Override
-	public void register(BoardVO board) {
+	public void register(BoardVO board, List<MultipartFile> files) {
 		log.info("register......." + board);
+		Long bno = board.getBno();
+		
+		for(MultipartFile part: files) {
+			if(part.isEmpty()) continue;
+			try {
+				BoardAttachmentVO attach = new BoardAttachmentVO(bno, part);
+				mapper.insertAttachment(attach);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		mapper.insertSelectKey(board);
 	}

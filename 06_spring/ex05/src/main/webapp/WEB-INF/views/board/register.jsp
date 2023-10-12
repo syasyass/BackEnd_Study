@@ -18,6 +18,22 @@ $(document).ready(function() {
 		focus: true, // 에디터로딩후포커스를맞출지여부
 		lang: "ko-KR",// 한글설정
 	});
+	
+	const attaches = $('[name="files"]');
+	const attachList = $('#attach-list');
+	
+	attaches.change(function (e) {
+		let fileList = '';
+		for(let file of this.files) { // this -> <input type="file">
+			let fileStr = `
+			<div>
+				<i class="fa-solid fa-file"></i>
+				\${file.name}(\${file.size.formatBytes(2)})
+			</div>`;
+			fileList += fileStr;
+		}
+		attachList.html(fileList);
+	});
 });
 // 기본글꼴설정
 $('#content').summernote('fontName', 'Arial');
@@ -28,9 +44,10 @@ $('#content').summernote('fontName', 'Arial');
 <h1 class="page-header mt-4"><i class="far fa-edit"></i>글 작성하기</h1>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<form:form modelAttribute="board" role="form">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<form:hidden path="bno"/>
+		<form:form modelAttribute="board" role="form"
+			action="?_csrf=${_csrf.token}"
+			enctype="multipart/form-data">
+			<!-- <form:hidden path="bno"/> -->
 			<!-- menu.jsp에서 sec: 으로 ${username} 설정을 해 두어서 쓸 수 있음.
 			글 작성하기는 로그인해야만 보이는 화면이고, 그런 화면에는 menu가 반드시 있기 때문에 확정적으로 사용 가능 -->
 			<form:hidden path="writer" value="${username}"/>
@@ -39,6 +56,14 @@ $('#content').summernote('fontName', 'Arial');
 				<form:label path="title">Title</form:label>
 				<form:input path="title" cssClass="form-control"/> <!-- name은 VO에 있는 멤버변수 이름을 사용 -->	
 				<form:errors path="title" cssClass="error"/>
+			</div>
+			
+			<div class="form-group">
+				<div id="file-list"></div>
+				<label for="attaches">첨부파일</label>
+				<div id="attach-list" class="my-1"></div>
+				<input type="file" class="form-control" multiple
+					name="files"/>
 			</div>
 
 			<div class="form-group">

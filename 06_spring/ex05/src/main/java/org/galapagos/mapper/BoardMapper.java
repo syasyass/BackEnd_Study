@@ -2,6 +2,7 @@ package org.galapagos.mapper;
 
 import java.util.List;
 
+import org.galapagos.domain.BoardAttachmentVO;
 import org.galapagos.domain.BoardVO;
 import org.galapagos.domain.Criteria;
 
@@ -23,4 +24,13 @@ public interface BoardMapper {
 	public int update(BoardVO board);
 	
 	public int getTotalCount(Criteria cri);
+	
+	// File upload
+	public void insertAttachment(BoardAttachmentVO attach);
+	
+	public List<BoardAttachmentVO> getAttachmentList(Long bno);
+	
+	public BoardAttachmentVO getAttachment(Long no);
+	
+	public int removeAttachment(Long no);
 }

@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.galapagos.domain.BoardVO;
 import org.galapagos.domain.Criteria;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface BoardService {
 	
-	public void register(BoardVO board);
+	public void register(BoardVO board, List<MultipartFile> files);
 	
 	public BoardVO get(Long bno);
 	
