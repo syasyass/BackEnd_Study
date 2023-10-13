@@ -195,6 +195,7 @@ create table tbl_board_attachment(
 	bno integer,
 	reg_date	datetime default now(),
 	constraint foreign key (bno) references tbl_board(bno)
+		on delete cascade
 );
 
 select * from tbl_board_attachment;
