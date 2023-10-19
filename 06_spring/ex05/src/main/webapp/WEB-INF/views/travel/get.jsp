@@ -151,6 +151,15 @@ pageEncoding="UTF-8"%>
 	<img src="${image}"></a></c:forEach>
 </div>
 
+<div>
+	<h4>주변 볼거리</h4>
+	<c:forEach var="local" items="${travel.locals}">
+		<div>
+			${local.placeName} / ${local.roadAddressName} / ${local.phone}
+		</div>
+	</c:forEach>
+</div>
+
 <div class="mt-4">
 	<i class="fa-solid fa-map-location-dot"></i> 주소: ${travel.address}
 </div>

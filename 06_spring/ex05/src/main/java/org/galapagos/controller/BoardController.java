@@ -15,6 +15,7 @@ import org.galapagos.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,21 +93,23 @@ public class BoardController {
 		log.info("/get or modify");
 		model.addAttribute("board", service.get(bno));
 	}
-
+	
 	@PostMapping("/modify")
 	public String modify(
 			@Valid @ModelAttribute("board") BoardVO board,
 			Errors errors,
+			List<MultipartFile> files,
 			@ModelAttribute("cri") Criteria cri,
-			RedirectAttributes rttr) {
+			RedirectAttributes rttr) throws Exception{
 		
+		log.info("modify:" + board);
 		if(errors.hasErrors()) {
 			return "board/modify";
 		}
-		
-		log.info("modify: " + board);
-		service.modify(board);
-		
+		if (service.modify(board, files)) {
+			// Flash --> 1회성
+			rttr.addFlashAttribute("result", "success");
+		}
 		return "redirect:" + cri.getLinkWithBno("/board/get", board.getBno());
 	}
 	
@@ -130,5 +133,11 @@ public class BoardController {
 		attach.download(response);
 	}
 	
-	
+	@DeleteMapping("/remove/attach/{no}")
+	@ResponseBody
+	public String removeAttach(@PathVariable("no") Long no) throws Exception {
+		
+		service.removeAttachment(no);
+		return "OK";
+	}
 }

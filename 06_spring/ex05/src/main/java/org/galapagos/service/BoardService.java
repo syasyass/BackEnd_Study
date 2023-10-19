@@ -13,7 +13,7 @@ public interface BoardService {
 	
 	public BoardVO get(Long bno);
 	
-	public boolean modify(BoardVO board);
+	public boolean modify(BoardVO board, List<MultipartFile> files) throws Exception;
 	
 	public boolean remove(Long bno);
 

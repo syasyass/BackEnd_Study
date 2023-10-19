@@ -16,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor //생성자를 통해 와이어링 할 수 있다는 것을 설명하기 위해 작성 (@Autowired를 대신하는 역할)
+@Transactional(rollbackFor=Exception.class) // checked 예외도 롤백을 하겠다는 의미
 public class BoardServiceImpl implements BoardService {
 
 //	@Autowired
@@ -43,12 +44,18 @@ public class BoardServiceImpl implements BoardService {
 		
 		return board;
 	}
-
+	
 	@Override
-	public boolean modify(BoardVO board) {
-		log.info("modiify......." + board);
+	public boolean modify(BoardVO board, List<MultipartFile> files) throws Exception {
+		int reuslt= mapper.update(board);
+		Long bno= board.getBno();
 		
-		return mapper.update(board) == 1;
+		for(MultipartFile part: files) {
+			if(part.isEmpty()) continue;
+			BoardAttachmentVO attach = new BoardAttachmentVO(bno, part);
+			mapper.insertAttachment(attach);
+		}
+		return reuslt== 1;
 	}
 
 	@Override
