@@ -91,3 +91,6 @@ create table persistent_logins(
 	token varchar(64) not null,
 	last_used timestamp not null
 );
+
+select * from tbl_member
+where username = "eeee";

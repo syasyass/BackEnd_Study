@@ -1,7 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@ page session="false" %>
+<%@ include file="layouts/header.jsp"%>
+
 <html>
 <head>
 	<title>Home</title>
@@ -25,3 +27,5 @@
 </sec:authorize>
 </body>
 </html>
+
+<%@ include file="layouts/footer.jsp"%>
