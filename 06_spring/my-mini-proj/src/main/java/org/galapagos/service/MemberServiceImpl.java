@@ -62,12 +62,12 @@ public class MemberServiceImpl implements MemberService {
 		member.setPassword(encPassword);
 		
 		// 2.tbl_member에 저장
-		mapper.update(member);
+		mapper.modify(member);
 		
 		// 3. tbl_member_auth에 저장
 		AuthVO auth = new AuthVO(member.getUsername(),
 							"ROLE_USER");
-		mapper.updateAuth(auth);
+		mapper.modifyAuth(auth);
 		
 		// 4. avatar 이미지 저장
 		if(!avatar.isEmpty()) {

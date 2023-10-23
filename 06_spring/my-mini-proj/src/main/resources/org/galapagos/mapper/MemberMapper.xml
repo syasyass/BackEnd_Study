@@ -36,14 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{username}, #{auth})
 	</insert>
 	
-	<update id = "update">
+	<update id = "modify">
 		update tbl_member set
 			password = #{password},
 			email = #{email}
 		where username = #{username}
 	</update>
 	
-	<update id = "updateAuth">
+	<update id = "modifyAuth">
 		update tbl_member_auth set
 			auth = #{auth}
 		where username = #{username}

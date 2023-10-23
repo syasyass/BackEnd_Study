@@ -94,3 +94,8 @@ create table persistent_logins(
 
 select * from tbl_member
 where username = "eeee";
+
+update tbl_member set
+	password = 1234,
+	email = "yyyy2@ymail.com"
+where username = "yyyy";

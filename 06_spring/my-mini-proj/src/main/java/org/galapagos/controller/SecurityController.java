@@ -99,9 +99,11 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/profile")
-	public String profile(@Valid @ModelAttribute("member") MemberVO member,
+	public String profile(
+				@ModelAttribute("member") MemberVO member,
 				Errors errors,
 				MultipartFile avatar) throws IOException {
+		
 		//1. 비밀번호, 비밀번호 확인 일치 여부
 		if(!member.getPassword().equals(member.getPassword2())) {
 			//에러 추가

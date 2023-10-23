@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
 
 <sec:authentication property="principal.member" var="member"/>
 
+<sec:authorize access="isAuthenticated()">
 <div class="d-flex my-3">
 	<form:form modelAttribute="member" enctype="multipart/form-data"
 				action="/security/profile?_csrf=${_csrf.token}"
@@ -46,5 +47,6 @@ pageEncoding="UTF-8"%>
 			</div>
 	</form:form>
 </div>
+</sec:authorize>
 
 <%@ include file="../layouts/footer.jsp" %>

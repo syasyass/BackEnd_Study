@@ -97,7 +97,29 @@ public class SecurityController {
 	}
 	
 	@GetMapping("/profile")
-	public void profile() {
+	public void profile(@ModelAttribute("member") MemberVO member) {
 		
+	}
+	
+	@PostMapping("/profile")
+	public String profile(
+			@ModelAttribute("member") MemberVO member,
+			Errors errors,
+			MultipartFile avatar) throws IOException {
+		
+		// 1. 비밀번호, 비밀번호 확인 일치 여부
+		if(!member.getPassword().equals(member.getPassword2())) {
+			// 에러 추가
+			errors.rejectValue("password2", "비밀번호 불일치", "비밀번호 확인이 일치하지 않습니다.");
+		}
+		
+		if(errors.hasFieldErrors()) {
+			return "security/profile";
+		}
+		// DB 저장
+		service.modify(member, avatar);
+		
+		// 성공했을 때
+		return "redirect:/";
 	}
 }

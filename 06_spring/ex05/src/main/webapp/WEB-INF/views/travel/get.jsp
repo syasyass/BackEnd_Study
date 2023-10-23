@@ -194,6 +194,15 @@ pageEncoding="UTF-8"%>
   let geocoder = new kakao.maps.services.Geocoder();
   let address = '${travel.address}';
   
+  let locals = [
+	  <c:forEach var="local" items="${travel.locals}">
+	  	{
+	  		name: '${local.placeName}',
+	  		coords: new kakao.maps.LatLng(${local.y}, ${local.x})
+	  	},
+	  </c:forEach>
+  ];
+  
   // 비동기 함수 (callback))
   geocoder.addressSearch(address, function(result, status){
 	  if(status === kakao.maps.services.Status.OK) {
@@ -203,15 +212,22 @@ pageEncoding="UTF-8"%>
 		  let mapContainer = document.getElementById('map');  //  지도 생성
 		  let mapOption = {//  지도 제어 코딩
 				  center: coords, // 중심 좌표
-				  level: 3 // 지도의 확대 레벨
+				  level: 5 // 지도의 확대 레벨
 		  };
 		  
 		  let map = new kakao.maps.Map(mapContainer, mapOption);
 		  
-		  let marker = new kakao.maps.Marker({
+/* 		  let marker = new kakao.maps.Marker({
 			  map: map,
 			  position: coords
-		  });
+		  }); */
+		  
+		  for(let local of locals) {
+			  let marker = new kakao.maps.Marker({
+				 map: map,
+				 position: local.coords
+			  });
+		  }
 		  
 		  // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		  map.setCenter(coords);
