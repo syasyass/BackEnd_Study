@@ -48,4 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			auth = #{auth}
 		where username = #{username}
 	</update>
+	
+	<update id = "changePassword">
+		update tbl_member_auth set
+			password = #{encPassword}
+		where username = #{username}
+	</update>
 </mapper>

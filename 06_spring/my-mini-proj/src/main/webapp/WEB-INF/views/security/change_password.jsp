@@ -11,29 +11,31 @@ pageEncoding="UTF-8"%>
 <sec:authorize access="isAuthenticated()">
 <div class="d-flex my-3">
 	<form:form modelAttribute="member" enctype="multipart/form-data"
-				action="/security/profile?_csrf=${_csrf.token}"
+				action="/security/change_password?_csrf=${_csrf.token}"
 				style="width:500px" class="mx-auto"> <!-- 첨부파일 기능 때문에 액션에 암호화 코드 넣음 -->
-	<h1 class="mt-4"><img src="/security/avatar/lg/${member.username}" /> Profile</h1>
+	<h1 class="mt-4"><img src="/security/avatar/lg/${member.username}" /> Change Password</h1>
 
 			<div class="form-group mt-4">
 				사용자 ID: ${member.username}
 			</div>
-			<div>
-				가입일: <fmt:formatDate value="${member.regDate}" pattern="yyyy-MM-dd HH:mm" />		
+			
+			<div class="form-group mt-4">
+				<form:label path="orgPassword">이전 비밀번호 입력</form:label>
+				<form:input path="orgPassword" cssClass="form-control"/>
+				<form:errors path="orgPassword" cssClass="error"/>
 			</div>
 
-	   		<a href="/security/change_password" class="btn btn-primary btn-block" role="button">
-	   			<i class="fa-solid fa-user-plus"></i>비밀번호 변경
-	   		</a>
-
+			<div class="form-group mt-4">
+				<form:label path="newPassword">새 비밀번호 입력</form:label>
+				<form:input path="newPassword" cssClass="form-control"/>
+				<form:errors path="newPassword" cssClass="error"/>
+			</div>
 			<div class="form-group">
-				<form:label path="email">email: ${member.email}</form:label>
-				<form:input path="email" cssClass="form-control"/>
-				<form:errors path="email" cssClass="error"/>
+				<form:label path="newPassword2">새 비밀번호 확인</form:label>
+				<form:input path="newPassword2" cssClass="form-control"/>
+				<form:errors path="newPassword2" cssClass="error"/>
 			</div>
 			
-			<input type="file" name="avatar" /> <!-- DB에 넣지 않고 따로 처리 -->
-
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary">
 					<i class="fas fa-undo"></i>확인</button>	

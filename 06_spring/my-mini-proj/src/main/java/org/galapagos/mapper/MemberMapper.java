@@ -1,6 +1,7 @@
 package org.galapagos.mapper;
 
 import org.galapagos.domain.AuthVO;
+import org.galapagos.domain.ChangePasswordVO;
 import org.galapagos.domain.MemberVO;
 
 public interface MemberMapper {
@@ -14,4 +15,6 @@ public interface MemberMapper {
 	public void modify(MemberVO member);
 	
 	public void modifyAuth(AuthVO auth);
+	
+	public void changePassword(ChangePasswordVO vo);
 }
